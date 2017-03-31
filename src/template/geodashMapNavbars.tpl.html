@@ -1,0 +1,25 @@
+<div
+  *ngFor="let navbar of navbars"
+  [ngClass]="navbar.classes"
+  [ngStyle]="navbar.style">
+  <div
+    *ngFor="let tab of navbar.tabs"
+    [ngClass]="tab.wrapper_classes"
+    [ngStyle]="tab.wrapper_style">
+    <a
+      [ngClass]="tab.classes"
+      [ngStyle]="tab.style"
+      [attr.href]="tab.href"
+      [attr.target]="tab.target"
+      [attr.data-intents]="tab.intents | json : 0"
+      data-intent-ctrl="geodash-map-navbars"
+      data-intent-class-on="btn-primary selected"
+      data-intent-class-off="btn-default"
+      [attr.data-toggle]="tab.tooltip | ternary_defined : 'tooltip': ''"
+      [attr.data-placement]="tab.tooltip.placement"
+      [attr.data-container]="tab.container"
+      [attr.title]="tab | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
+      [innerHTML]="tab.title | md2html : markdown_tab(navbar, tab)"
+      (click)="onClick($event, navbar, tab)"></a>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+@import "variables.less";
+
+.geodash-map-navbars
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  /*margin-left: 15px;
+  margin-right: 15px;*/
+  margin: 0px;
+
+  .geodash-map-navbar {
+    background: rgba(0,0,0,0);
+    z-index: @geodash-map-control-z-index;
+    border-radius: 3px;
+    border: 0;
+
+    div {
+
+      a {
+        width: 100%;
+        border: 1px solid rgb(204, 204, 204);
+        transition: width @geodash-map-navbar-transition ease-in-out;
+        transition: height @geodash-map-navbar-transition ease-in-out;
+        cursor: pointer;
+      }
+
+     a.btn-default {
+       color: @geodash-map-navbar-button-color;
+       background: @geodash-map-navbar-button-background;
+     }
+
+     a.selected {
+       background: rgb(51, 122, 183);
+     }
+
+    }
+
+  }
+
+  .geodash-map-navbar.geodash-placement-top, .geodash-map-navbar.geodash-placement-bottom {
+    div {
+      a.pop:hover {
+        height: 60px;
+        line-height: 38px;
+      }
+      a.pop.selected {
+        height: 60px;
+        line-height: 38px;
+      }
+    }
+  }
+
+  .geodash-map-navbar.geodash-placement-top {
+    a {
+      vertical-align: top;
+      border-radius: 0px 0px 6px 6px;
+    }
+  }
+
+  .geodash-map-navbar.geodash-placement-bottom {
+    a {
+      vertical-align: bottom;
+      border-radius: 6px 6px 0px 0px;
+    }
+  }
+
+}

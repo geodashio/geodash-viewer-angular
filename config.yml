@@ -1,0 +1,64 @@
+---
+src:
+  less:
+    - src/less/geodashviewer.less
+    - src/less/base.less
+    - src/less/map_map.less
+    - src/less/map_navbars.less
+    - src/less/map_overlays.less
+  ts:
+    - src/ts/main.ts
+    - src/ts/app.module.ts
+    - src/ts/geodash/components/GeoDashComponentMain.ts
+    - src/ts/geodash/components/GeoDashComponentMap.ts
+    - src/ts/geodash/components/GeoDashComponentMapMap.ts
+    - src/ts/geodash/components/GeoDashComponentMapNavbars.ts
+    - src/ts/geodash/components/GeoDashComponentMapOverlays.ts
+    - src/ts/geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank.ts
+    - src/ts/geodash/pipes/GeoDashPipeExtract.ts
+    - src/ts/geodash/pipes/GeoDashPipeMarkdwonToHTML.ts
+    - src/ts/geodash/pipes/GeoDashPipeTernaryDefined.ts
+    - src/ts/geodash/services/GeoDashServiceBus.ts
+    - src/ts/geodash/services/GeoDashServiceBootloader.ts
+    - src/ts/geodash/services/GeoDashServiceCompile.ts
+  js:
+    polyfill:
+      - src/js/polyfill/**/*.js
+  template:
+    - src/template/geodashMain.tpl.html
+    - src/template/geodashMap.tpl.html
+    - src/template/geodashMapMap.tpl.html
+    - src/template/geodashMapNavbars.tpl.html
+    - src/template/geodashMapOverlays.tpl.html
+compiler:
+  ts:
+    target: es5
+    module: system
+    moduleResolution: node
+    emitDecoratorMetadata: true
+    experimentalDecorators: true
+    lib:
+      - es2015
+      - dom
+    noImplicitAny: true
+    suppressImplicitAnyIndexErrors: true
+    outFile: app.js
+resources:
+  - node_modules/core-js/client/shim.min.js
+  - node_modules/zone.js/dist/zone.js
+  - node_modules/systemjs/dist/system.src.js
+  - node_modules/requirejs/require.js
+  - node_modules/jquery/jquery.js
+  - node_modules/jquery/jquery.min.map
+  - node_modules/jquery/jquery.min.js
+  - node_modules/yamljs/dist/yaml.js
+  - node_modules/yamljs/dist/yaml.debug.js
+  - node_modules/yamljs/dist/yaml.legacy.js
+  - node_modules/yamljs/dist/yaml.min.js
+  - node_modules/openlayers/dist/ol.css
+  - node_modules/openlayers/dist/ol-debug.css
+  - node_modules/openlayers/dist/ol.js
+  - node_modules/openlayers/dist/ol-debug.js
+  - node_modules/jsts/dist/jsts.min.js
+  - lib/geodash/geodash.js
+  - lib/geodash/geodash.min.js

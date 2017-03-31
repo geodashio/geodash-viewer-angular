@@ -1,0 +1,116 @@
+<html class="svg" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="Content-Language" content="en_US" />
+    <link rel="dns-prefetch" href="//wfp.org">
+    <link rel="dns-prefetch" href="//state.gov">
+    <link rel="dns-prefetch" href="//geonode.wfp.org">
+    <link rel="dns-prefetch" href="//geonode.state.gov">
+    <link rel="dns-prefetch" href="//mapbox.com">
+    <link rel="dns-prefetch" href="//api.mapbox.com">
+    <link rel="dns-prefetch" href="//openstreetmap.org">
+    <link rel="dns-prefetch" href="//openstreetmap.fr">
+    <title>GeoDash Viewer</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="build/resources/ol.css" type="text/css" media="all" />
+    <style>.ol-control button { width: 2em; height: 2em; }</style>
+    <link href="lib/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="build/css/app.css" rel="stylesheet"/>
+    <script src="build/js/polyfill.min.js"></script>
+    <script src="build/resources/jquery.min.js"></script>
+    <script src="build/resources/ol.js"></script>
+    <script src="build/resources/jsts.min.js"></script>
+    <!-- Angular 2 -->
+    <script src="build/resources/shim.min.js"></script>
+    <script src="build/resources/zone.js"></script>
+    <script src="build/resources/system.src.js"></script>
+    <script src="build/resources/geodash.js"></script>
+    <script src="build/resources/yaml.min.js"></script>
+    <script src="build/templates/templates.js"></script>
+    <script>
+      geodash.templates.merged = {};
+      if(geodash.util.isDefined(extract("templates.static", geodash)))
+      {
+        $.each(geodash.templates.static, function(name, template){
+          geodash.templates.merged[name] = template;
+        });
+      }
+
+      if(geodash.util.isDefined(extract("templates.server", geodash)))
+      {
+        $.each(geodash.templates.server, function(name, template){
+          geodash.templates.merged[name] = template;
+        });
+      }
+    </script>
+    <script>
+      System.config({
+        paths: {
+          'npm:': 'node_modules/'
+        },
+        map: {
+          // our app is within the app folder
+          'app': 'build/js',
+
+          // angular bundles
+          '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+          '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+          '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+          '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+          '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+          '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+          '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
+          '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+
+          // other libraries
+          'rxjs':                      'npm:rxjs',
+          'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+        },
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          rxjs: {
+            defaultExtension: 'js'
+          }
+        },
+        bundles: {
+          'build/js/app.js': ['main']
+        }
+      });
+      System.import('main').catch(function(err){ console.error(err); });
+    </script>
+    <!--
+    <script src="build/resources/require.js"></script>
+    <script src="build/js/app.js"></script>
+    <script>
+      requirejs.config({
+        baseUrl: 'node_modules',
+        paths: {
+          'node_modules': 'node_modules'
+        }
+      });
+      require(['main'], function(myModule){ var module = new myModule(); });
+    </script>
+    -->
+    <!-- Systemjs -->
+
+    <!--<script src="build/js/app.js"></script>
+    <script>
+      requirejs.config({ baseUrl: '.', paths: { 'App':'/build/js/app' } });
+      requirejs(['App'], function(MyApp) { var app = new MyApp.App(); app.start(); });
+    </script>-->
+  </head>
+  <body>
+    <geodash-main
+      id="geodash-main"
+      class="container-fluid geodash-main geodash-controller geodash-dashboard row no-gutters"
+      style="position:relative; display: block; width: 100%; height: 100%;">Loading content...</geodash-main>
+  </body>
+</html>

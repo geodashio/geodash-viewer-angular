@@ -1,0 +1,62 @@
+{
+  "name": "geodash-viewer",
+  "version": "0.0.1",
+  "author": "GeoDash Developers",
+  "description": "Static code and assets for GeoDash Viewer 1.x",
+  "contributors": [
+    {
+      "name": "Patrick Dufour"
+    }
+  ],
+  "scripts": {
+    "tslint": "tslint -c tslint.json app/**/*.ts",
+    "serve": "lite-server -c=bs-config.json",
+    "postinstall": "tsd install"
+  },
+  "dependencies": {
+    "@angular/common": "~4.0.0",
+    "@angular/compiler": "~4.0.0",
+    "@angular/core": "~4.0.0",
+    "@angular/forms": "~4.0.0",
+    "@angular/http": "~4.0.0",
+    "@angular/platform-browser": "~4.0.0",
+    "@angular/platform-browser-dynamic": "~4.0.0",
+    "@angular/router": "~4.0.0",
+    "angular-in-memory-web-api": "~0.3.0",
+    "systemjs": "0.19.40",
+    "core-js": "^2.4.1",
+    "rxjs": "5.0.1",
+    "zone.js": "^0.8.4",
+    "requirejs": "*",
+    "jquery": "~1.9.1",
+    "openlayers": "~3.20.1",
+    "jsts": "*"
+  },
+  "devDependencies": {
+    "lite-server": "^2.2.2",
+    "browser-sync": "^2.10.0",
+    "del": "^2.1.0",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^3.6.0",
+    "gulp-typescript": "~3.1.6",
+    "tsconfig-glob": "^0.3.3",
+    "tsd": "^0.6.5",
+    "tslint": "^3.2.1",
+    "typescript": "~2.1.0",
+    "gulp-util": "*",
+    "gulp-jshint": "*",
+    "gulp-angular-templatecache": "^1.8.0",
+    "del": "*",
+    "merge": "*",
+    "path": "*",
+    "yamljs": "^0.2.7",
+    "yargs": "*",
+    "mkdirp": "*",
+    "showdown": "*",
+    "yamljs": "^0.2.7",
+    "geodash-build-pipeline": ">=0.0.3",
+    "geodash-extract": "*",
+    "jshint": "*"
+  }
+}
