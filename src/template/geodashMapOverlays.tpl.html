@@ -1,73 +1,68 @@
-<div *ngIf="dashboard | extract : 'overlays'">
-  <div *ngFor="let overlay of dashboard.overlays; let i = index">
-    <div *ngIf="overlay.link | ternary_defined : false : true">
-      <div
-        *ngIf="overlay.type == 'text'"
-        [attr.data-overlay-index]="i"
-        data-overlay-type="text"
-        [ngClass]="class_overlay(overlay)"
-        [attr.width]="overlay.width | default_if_undefined_or_blank : ''"
-        [attr.height]="overlay.height | default_if_undefined_or_blank : ''"
-        [ngStyle]="style(overlay.type, overlay)"
-        [attr.data-intents]="intents(overlay) | json : 0"
-        data-intent-ctrl="geodash-map-overlays"
-        [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
-        [attr.data-placement]="overlay | extract : 'tooltip' : 'placement' | default_if_undefined_or_blank : ''"
-        [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
-        on-link-done="overlayLoaded"
-        [innerHTML]="overlay.text.content | md2html">
-      </div>
-      <div
-        *ngIf="overlay.type == 'image'"
-        [attr.data-overlay-index]="i"
-        data-overlay-type="image"
-        [ngClass]="class_overlay(overlay)"
-        [ngStyle]="style(overlay.type, overlay)"
-        on-link-done="overlayLoaded"
-        [attr.data-intents]="intents(overlay) | json : 0"
-        data-intent-ctrl="geodash-map-overlays"
-        [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
-        [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
-        [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''">
-        <img
-          [src]="imageURL(overlay)"
-          [attr.width]="overlay.width"
-          [attr.height]="overlay.height">
-      </div>
+<div *ngFor="let overlay of overlays; let i = index">
+  <div *ngIf="overlay.link | ternary_defined : false : true">
+    <div
+      *ngIf="overlay.type == 'text'"
+      [attr.data-overlay-index]="i"
+      data-overlay-type="text"
+      [ngClass]="overlay.classes"
+      [attr.width]="overlay.width | default_if_undefined_or_blank : ''"
+      [attr.height]="overlay.height | default_if_undefined_or_blank : ''"
+      [ngStyle]="overlay.style"
+      [attr.data-intents]="overlay.intents | json : 0"
+      [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
+      [attr.data-placement]="overlay | extract : 'tooltip' : 'placement' | default_if_undefined_or_blank : ''"
+      [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
+      [innerHTML]="overlay | extract : 'text.content' | md2html"
+      (click)="onClick($event, overlay)">
     </div>
-    <a
-      *ngIf="overlay.link | ternary_defined : true : false"
-      [attr.href]="overlay | extract : 'link' : 'url'"
-      [attr.target]="overlay | extract : 'link' : 'target'">
-      <div
-        *ngIf="overlay.type == 'text'"
-        [attr.data-overlay-index]="i"
-        data-overlay-type="text"
-        class="geodash-map-overlay"
-        [attr.width]="overlay.width | default_if_undefined_or_blank : initial"
-        [attr.height]="overlay.height | default_if_undefined_or_blank : initial"
-        [ngStyle]="style(overlay.type, overlay)"
-        [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
-        [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
-        [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
-        on-link-done="overlayLoaded"
-        [innerHTML]="overlay.text.content | md2html">
-      </div>
-      <div
-        *ngIf="overlay.type == 'image'"
-        [attr.data-overlay-index]="i"
-        data-overlay-type="image"
-        class="geodash-map-overlay"
-        [ngStyle]="style(overlay.type, overlay)"
-        [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
-        [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
-        [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
-        on-link-done="overlayLoaded">
-        <img
-          [src]="imageURL(overlay)"
-          [attr.width]="overlay.width"
-          [attr.height]="overlay.height">
-      </div>
-    </a>
+    <div
+      *ngIf="overlay.type == 'image'"
+      [attr.data-overlay-index]="i"
+      data-overlay-type="image"
+      [ngClass]="overlay.classes"
+      [ngStyle]="overlay.style"
+      [attr.data-intents]="overlay.intents | json : 0"
+      [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
+      [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
+      [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
+      (click)="onClick($event, overlay)">
+      <img
+        [src]="imageURL(overlay)"
+        [attr.width]="overlay.width"
+        [attr.height]="overlay.height">
+    </div>
   </div>
+  <a
+    *ngIf="overlay.link | ternary_defined : true : false"
+    [attr.href]="overlay | extract : 'link.url'"
+    [attr.target]="overlay | extract : 'link.target'"
+    (click)="onClick($event, overlay)">
+    <div
+      *ngIf="overlay.type == 'text'"
+      [attr.data-overlay-index]="i"
+      data-overlay-type="text"
+      class="geodash-map-overlay"
+      [attr.width]="overlay.width | default_if_undefined_or_blank : 'initial'"
+      [attr.height]="overlay.height | default_if_undefined_or_blank : 'initial'"
+      [ngStyle]="overlay.style"
+      [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
+      [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
+      [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
+      [innerHTML]="overlay | extract : 'text.content' | md2html">
+    </div>
+    <div
+      *ngIf="overlay.type == 'image'"
+      [attr.data-overlay-index]="i"
+      data-overlay-type="image"
+      class="geodash-map-overlay"
+      [ngStyle]="overlay.style"
+      [attr.data-toggle]="overlay.tooltip | ternary_defined : 'tooltip': ''"
+      [attr.data-placement]="overlay | extract : 'tooltip.placement' | default_if_undefined_or_blank : ''"
+      [attr.title]="overlay | extract : 'tooltip.content' | default_if_undefined_or_blank : ''">
+      <img
+        [src]="overlay.src"
+        [attr.width]="overlay.width"
+        [attr.height]="overlay.height">
+    </div>
+  </a>
 </div>

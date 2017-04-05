@@ -1,0 +1,76 @@
+<html class="svg" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="Content-Language" content="en_US" />
+    <link rel="dns-prefetch" href="//wfp.org">
+    <link rel="dns-prefetch" href="//state.gov">
+    <link rel="dns-prefetch" href="//geonode.wfp.org">
+    <link rel="dns-prefetch" href="//geonode.state.gov">
+    <link rel="dns-prefetch" href="//mapbox.com">
+    <link rel="dns-prefetch" href="//api.mapbox.com">
+    <link rel="dns-prefetch" href="//openstreetmap.org">
+    <link rel="dns-prefetch" href="//openstreetmap.fr">
+    <title>GeoDash Viewer</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="build/resources/ol.css" type="text/css" media="all" />
+    <style>.ol-control button { width: 2em; height: 2em; }</style>
+    <link href="lib/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="build/css/app.css" rel="stylesheet"/>
+    <style>[hidden] { display: none !important;}</style>
+    <!-- JavaScript / Polyfills -->
+    <script src="build/js/polyfill.min.js"></script>
+    <!-- JavaScript / External Dependencies -->
+    <script src="build/resources/jquery.min.js"></script>
+    <script src="build/resources/tether.min.js"></script>
+    <script src="build/resources/bootstrap.min.js"></script>
+    <script src="build/resources/ol-debug.js"></script>
+    <script src="build/resources/jsts.min.js"></script>
+    <script src="build/resources/showdown.min.js"></script>
+    <script src="build/resources/yaml.min.js"></script>
+    <!-- JavaScript / Angular 2 -->
+    <script src="build/resources/shim.min.js"></script>
+    <script src="build/resources/zone.min.js"></script>
+    <script src="build/system/system.js"></script>
+    <!-- JavaScript / GeoDash -->
+    <script src="build/resources/geodash.js"></script>
+    <script src="build/templates/templates.js"></script>
+    <script src="build/js/geodash.config.js"></script>
+    <!-- JavaScript / SystemJS -->
+    <!--<script src="build/system/system.js"></script>-->
+    <script src="build/system/systemjs.config.js"></script>
+    <script>
+      System.import('main').catch(function(err){ console.error(err); });
+    </script>
+    <!--
+    <script src="build/resources/require.js"></script>
+    <script src="build/js/app.js"></script>
+    <script>
+      requirejs.config({
+        baseUrl: 'node_modules',
+        paths: {
+          'node_modules': 'node_modules'
+        }
+      });
+      require(['main'], function(myModule){ var module = new myModule(); });
+    </script>
+    -->
+    <!-- Systemjs -->
+
+    <!--<script src="build/js/app.js"></script>
+    <script>
+      requirejs.config({ baseUrl: '.', paths: { 'App':'/build/js/app' } });
+      requirejs(['App'], function(MyApp) { var app = new MyApp.App(); app.start(); });
+    </script>-->
+  </head>
+  <body>
+    <geodash-main
+      id="geodash-main"
+      class="container-fluid geodash-main geodash-controller geodash-dashboard row no-gutters"
+      style="position:relative; display: block; width: 100%; height: 100%;">Loading content...</geodash-main>
+  </body>
+</html>

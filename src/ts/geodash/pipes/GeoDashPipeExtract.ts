@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'extract'})
 export class GeoDashPipeExtract implements PipeTransform {
-  transform(value: any, args: any[]): any {
+  transform(value: any, ...path: string[]): any {
 
-    return args.length > 0 ? extract(expand(args), value) : undefined;
+    return path.length > 0 ? extract(expand(path), value) : undefined;
 
   }
 }

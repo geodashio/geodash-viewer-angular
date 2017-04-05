@@ -1,0 +1,179 @@
+---
+
+title: Navbars Example
+view:
+  baselayer: osm
+  featurelayers: []
+  latitude: 41.8667
+  longitude: 12.4920
+  maxZoom: 18
+  minZoom: 0
+  zoom: 11
+  controls: []
+controls:
+  attribution: false
+  legend: false
+  zoom: false
+renderlayers:
+  - osm
+baselayers:
+  - id: osm
+    title: OpenStreetMap
+    description: OpenStreetMap Basemap, Standard Style
+    type: tiles
+    source:
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      name: OpenStreetMap
+    tile:
+      url: https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png
+featurelayers: []
+overlays:
+  - id: attribution
+    type: text
+    position:
+      bottom: 68px
+      right: 8px
+    text:
+      content: "&copy; [OpenStreetMap](http://www.openstreetmap.org/copyright)"
+      font: { style: normal, family: Verdana, size: 1.2rem }
+    css:
+      properties:
+        - { name: padding, value: 8px }
+        - { name: background, value: "rgba(0, 0, 0, 0.4)" }
+        - { name: border, value: "2px solid #0374e6" }
+        - { name: border-radius, value: 8px }
+        - { name: line-height, value: 1.2rem }
+        - { name: color, value: white }
+  - id: powered_by_geodash
+    type: text
+    position:
+      bottom: 68px
+      left: 8px
+    text:
+      content: "Powered by GeoDash"
+      font: { style: normal, family: Verdana, size: 1.2rem }
+    link: { url: "https://geodash.io", target: "_blank" }
+    css:
+      properties:
+        - { name: padding, value: 8px }
+        - { name: background, value: "rgba(0, 0, 0, 0.4)" }
+        - { name: border, value: "2px solid #0374e6" }
+        - { name: border-radius, value: 8px }
+        - { name: line-height, value: 1.2rem }
+        - { name: color, value: white }
+  - id: zoom_in
+    type: text
+    title: "Zoom In"
+    position: { top: 8px, left: 8px, bottom: auto, right: auto }
+    text:
+      content: ""
+      font:
+        family: FontAwesome
+        size: 2rem
+    intents:
+      - name: zoomIn
+        properties:
+          - { name: animate, value: false }
+    tooltip: { placement: right, content: "Zoom In" }
+    css:
+      properties:
+        - { name: padding, value: 8px }
+        - { name: background, value: "rgba(0,0,0, 0.4)" }
+        - { name: border, value: "2px solid #0374e6" }
+        - { name: border-radius, value: "8px 8px 0px 0px" }
+        - { name: line-height, value: 2rem }
+  - id: zoom_out
+    type: text
+    title: "Zoom Out"
+    position: { top: calc(1rem + 10px + 2rem + 10px), left: 8px, bottom: auto, right: auto }
+    text:
+      content: ""
+      font:
+        family: FontAwesome
+        size: 2rem
+    intents:
+      - name: zoomOut
+        properties:
+          - { name: animate, value: false }
+    tooltip: { placement: right, content: "Zoom Out" }
+    css:
+      properties:
+        - { name: padding, value: 8px }
+        - { name: background, value: "rgba(0,0,0, 0.4)" }
+        - { name: border, value: "2px solid #0374e6" }
+        - { name: border-radius, value: "0px 0px 8px 8px" }
+        - { name: line-height, value: 2rem }
+  - id: popout
+    type: text
+    title: "Popout"
+    position: { top: 1rem, left: auto, bottom: auto, right: 1rem }
+    text:
+      content: ""
+      font: { family: FontAwesome, size: 2rem }
+    link: { url: "https://viewer.geodash.io/?main:config=https://geodash.io/assets/dashboards/navbars.yml", target: "_blank" }
+    tooltip: { placement: left, content: "Popout" }
+    css:
+      properties:
+        - { name: padding, value: 8px }
+        - { name: background, value: "rgba(0,0,0, 0.4)" }
+        - { name: border, value: "2px solid #0374e6" }
+        - { name: border-radius, value: 8px }
+        - { name: line-height, value: 2rem }
+navbars:
+  - id: cities
+    placement: left
+    css:
+      properties:
+        - name: top
+          value: 300px
+    intents:
+      - name: stateChanged
+        properties: [{ name: city, value: "{{ tab.value }}" }]
+      - name: flyToLocation
+        properties:
+          - { name: lat, value: "{{ tab.lat }}" }
+          - { name: lon, value: "{{ tab.lon }}" }
+          - { name: zoom, value: "{{ tab.zoom }}" }
+          - { name: projection, value: "{{ tab.projection }}" }
+    switch: "state.city"
+    tabs:
+      - title: Juba
+        value: juba
+        tooltip: { placement: top, content: "Juba, South Sudan" }
+        lat: 4.8475
+        lon: 31.5953
+        zoom: 14
+        projection: "EPSG:4326"
+        items:
+          - title: Info
+            intents:
+              - name: intoFeatureLayer
+                properties:
+                  - { name: name, value: "airports" }
+          - title: Zoom to Layer
+            intents:
+              - name: flyToLocation
+                properties:
+                  - { name: lat, value: "{{ tab.lat }}" }
+                  - { name: lon, value: "{{ tab.lon }}" }
+                  - { name: zoom, value: "{{ tab.zoom }}" }
+                  - { name: projection, value: "{{ tab.projection }}" }
+          - title: Toggle Feature Layer
+            intents:
+              - name: toggleFeatureLayer
+                properties:
+                  - { name: name, value: "airports" }
+      - title: Sana'a
+        value: sanaa
+        tooltip: { placement: top, content: "Sana'a, Yemen" }
+        lat: 15.3428
+        lon: 44.2004
+        zoom: 12
+        projection: "EPSG:4326"
+      - title: Aleppo
+        value: aleppo
+        tooltip: { placement: top, content: "Aleppo, Syria" }
+        lat: 36.2004
+        lon: 37.1601
+        zoom: 12
+        projection: "EPSG:4326"

@@ -2,16 +2,18 @@ declare var extract: any;
 declare var geodash: any;
 declare var ol: any;
 declare var jsts: any;
+declare var $: any;
 
 /* Components */
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ElementRef } from '@angular/core';
 
 /* Services */
 import { GeoDashServiceBus }  from './../../geodash/services/GeoDashServiceBus';
+import { GeoDashServiceCompile } from './../../geodash/services/GeoDashServiceCompile';
 
 @Component({
   selector: 'geodash-map-map',
-  template: extract(['templates', 'merged', 'geodashMapMap.tpl.html'], geodash)
+  template: geodash.api.getTemplate('geodashMapMap.tpl.html')
 })
 export class GeoDashComponentMapMap implements OnInit {
   name = 'GeoDashComponentMapMap';
@@ -19,13 +21,28 @@ export class GeoDashComponentMapMap implements OnInit {
   private dashboard: any;
   private state: any;
 
-  constructor(private bus: GeoDashServiceBus) {
+  constructor(private element: ElementRef, private bus: GeoDashServiceBus, private compileService: GeoDashServiceCompile) {
 
   }
 
   ngOnInit(): void {
     this.bus.listen("primary", "geodash:loaded", this.onLoaded);
     this.bus.listen("render", "geodash:changeView", this.onChangeView);
+    this.bus.listen("render", "geodash:refresh", this.onRefresh);
+    this.bus.listen("render", "geodash:openPopup", this.onOpenPopup);
+  }
+
+  render = (object: any, ctx: any): any => {
+    return geodash.util.arrayToObject(geodash.util.objectToArray(object).map((x:any) => {
+      return <any>{
+        "name": x.name,
+        "value": (geodash.util.isString(x.value) ? this.interpolate(x.value)(ctx) : x.value)
+      };
+    }));
+  }
+
+  interpolate = (template: string): any => {
+      return (ctx:any) => this.compileService.compile(template, ctx);
   }
 
   //onLoaded(data: any, source: any): void {
@@ -36,7 +53,12 @@ export class GeoDashComponentMapMap implements OnInit {
     this.state = data["state"];
 
     // Initialize Map
-    var listeners: any;
+    var listeners = <any>{
+      "map": <any>{
+        singleclick: this.onMapSingleClick,
+        postrender: this.onMapPostRender
+      },
+    };
     geodash.var.map = geodash.init.map_ol3(<any>{
       "id": "map",
       "dashboard": this.dashboard,
@@ -83,6 +105,129 @@ export class GeoDashComponentMapMap implements OnInit {
 
     this.bus.emit("primary", "geodash:maploaded", <any>{}, this.name);
 
+  }
+
+  onMapSingleClick = (e: any): void => {
+    var m = geodash.var.map;
+    var v = m.getView();
+    var c = ol.proj.toLonLat(e.coordinate, v.getProjection());
+    var data = <any>{
+      "location": <any>{
+        "lat": c[1],
+        "lon": c[0]
+      },
+      "pixel": <any>{
+        "x": e.pixel[0],
+        "y": e.pixel[1]
+      }
+    };
+    this.bus.emit("intents", "clickedOnMap", data, this.name);
+  }
+
+  onMapPostRender = (e: any): void => {
+    var popover = $("#popup").data("bs.popover");
+    if(geodash.util.isDefined(popover))
+    {
+      var tether = popover._tether;
+      if(geodash.util.isDefined(tether))
+      {
+        tether.position()
+      }
+    }
+  }
+
+  onRefresh = (name: any, data: any, source: any): void => {
+    this.state = data["state"];
+
+    var visibleBaseLayer = this.state.view.baselayer;
+    var currentLayers = geodash.mapping_library == "ol3" ? geodash.var.map.getLayers().getArray() : undefined;
+    geodash.util.objectToArray(geodash.var.baselayers).forEach((x:any) => {
+      let layer = x.value;
+      var visible = x.name == visibleBaseLayer;
+      if(geodash.mapping_library == "ol3")
+      {
+        if(currentLayers.indexOf(layer) != -1 && !visible)
+        {
+          geodash.var.map.removeLayer(layer);
+        }
+        else if(currentLayers.indexOf(layer) == -1 && visible)
+        {
+          geodash.var.map.addLayer(layer);
+        }
+      }
+      else
+      {
+        if(geodash.var.map.getLayers().getArray().indexOf(layer) != -1 && !visible)
+        {
+          geodash.var.map.removeLayer(layer);
+        }
+        else if(geodash.var.map.getLayers().getArray().indexOf(layer) == -1 && visible)
+        {
+          geodash.var.map.addLayer(layer);
+        }
+      }
+    });
+
+    var visibleFeatureLayers = this.state.view.featurelayers;
+    geodash.util.objectToArray(geodash.var.featurelayers).forEach((x:any) => {
+      var layer = x.value
+      var visible = visibleFeatureLayers.indexOf(x.name) != -1;
+      if(geodash.mapping_library == "ol3")
+      {
+        if(currentLayers.indexOf(layer) != -1 && !visible)
+        {
+          geodash.var.map.removeLayer(layer);
+        }
+        else if(currentLayers.indexOf(layer) == -1 && visible)
+        {
+          geodash.var.map.addLayer(layer);
+        }
+      }
+      else
+      {
+        if(geodash.var.map.getLayers().getArray().indexOf(layer) != -1 && !visible)
+        {
+          geodash.var.map.removeLayer(layer);
+        }
+        else if(geodash.var.map.getLayers().getArray().indexOf(layer) == -1 && visible)
+        {
+          geodash.var.map.addLayer(layer);
+        }
+      }
+    });
+
+    // Update Render Order
+    var renderLayers = geodash.util.objectToArray(geodash.var.featurelayers).filter((x:any) => visibleFeatureLayers.indexOf(x["name"]) != -1);
+    //var renderLayers = $.grep(layersAsArray(geodash.var.featurelayers), function(layer){ return $.inArray(layer["id"], visibleFeatureLayers) != -1;});
+    //var renderLayersSorted = sortLayers(renderLayers.map((layer:any) => layer["layer"]}), true);
+    //var baseLayersAsArray = geodash.util.objectToArray(geodash.var.baselayers).map((x:any) => {'id':x.name, 'layer': x.value});
+    //var baseLayersAsArray = $.map(geodash.var.baselayers, function(layer, id){return {'id':id,'layer':layer};});
+    /*var baseLayers = $.map(
+      $.grep(layersAsArray(geodash.var.baselayers), function(layer){return layer["id"] == visibleBaseLayer;}),
+      function(layer, i){return layer["layer"];});*/
+
+    // Force Refresh
+    if(geodash.mapping_library == "ol3")
+    {
+      setTimeout(function(){
+
+        var m = geodash.var.map;
+        m.renderer_.dispose();
+        m.renderer_ = new ol.renderer.canvas.Map(m.viewport_, m);
+        //m.updateSize();
+        m.renderSync();
+
+      }, 0);
+    }
+    else if(geodash.mapping_library == "leaflet")
+    {
+      for(var i = 0; i < renderLayers.length; i++)
+      {
+          renderLayers[i].bringToFront();
+      }
+
+      setTimeout(function(){ geodash.var.map._onResize(); }, 0);
+    }
   }
 
   onChangeView = (name: any, data: any, source: any): void => {
@@ -140,6 +285,25 @@ export class GeoDashComponentMapMap implements OnInit {
         "lon": extract("lon", data),
         "zoom": extract("zoom", data)
       });
+    }
+  }
+
+  onOpenPopup = (name: any, data: any, source: any): void => {
+    console.log("Opening popup...", data);
+    if(
+      geodash.util.isDefined(data["featureLayer"]) &&
+      geodash.util.isDefined(data["feature"]) &&
+      geodash.util.isDefined(data["location"])
+    )
+    {
+      geodash.popup.openPopup(
+        this.interpolate,
+        data["featureLayer"],
+        data["feature"],
+        data["location"],
+        geodash.var.map,
+        this.state
+      );
     }
   }
 }

@@ -389,10 +389,14 @@
 }
 .geodash-map-navbars .geodash-map-navbar.geodash-placement-top a {
   vertical-align: top;
+}
+.geodash-map-navbars .geodash-map-navbar.geodash-placement-top > div > a {
   border-radius: 0px 0px 6px 6px;
 }
 .geodash-map-navbars .geodash-map-navbar.geodash-placement-bottom a {
   vertical-align: bottom;
+}
+.geodash-map-navbars .geodash-map-navbar.geodash-placement-bottom > div > a {
   border-radius: 6px 6px 0px 0px;
 }
 

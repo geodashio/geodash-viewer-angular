@@ -1,8 +1,9 @@
 declare var extract: any;
 declare var geodash: any;
+declare var $: any;
 
 /* Components */
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ElementRef } from '@angular/core';
 
 /* Services */
 import { GeoDashServiceBus }  from './../../geodash/services/GeoDashServiceBus';
@@ -10,18 +11,21 @@ import { GeoDashServiceCompile } from './../../geodash/services/GeoDashServiceCo
 
 @Component({
   selector: 'geodash-map-overlays',
-  template: extract(['templates', 'merged', 'geodashMapOverlays.tpl.html'], geodash),
+  template: geodash.api.getTemplate('geodashMapOverlays.tpl.html'),
   providers: []
 })
 export class GeoDashComponentMapOverlays implements OnInit {
 
-  public dashboard: any;
-  public state: any;
+  private dashboard: any;
+  private state: any;
+  private overlays: any;
 
   name = 'GeoDashComponentMapOverlays';
 
-  constructor(private bus: GeoDashServiceBus, private compileService: GeoDashServiceCompile) {
+  constructor(private element: ElementRef, private bus: GeoDashServiceBus, private compileService: GeoDashServiceCompile) {
 
+    this.state = {};
+    this.overlays = [];
   }
 
   ngOnInit(): void {
@@ -29,16 +33,47 @@ export class GeoDashComponentMapOverlays implements OnInit {
   }
 
   //onLoaded(data: any, source: any): void {
-  onLoaded = (data: any, source: any): void => {
+  onLoaded = (name: any, data: any, source: any): void => {
     console.log("GeoDashComponentMapOverlays: ", data, source);
     this.dashboard = data["dashboard"];
     this.state = data["state"];
+    this.overlays = extract("overlays", this.dashboard, []).map((overlay: any): any => geodash.util.extend(overlay, <any>{
+        "classes": this.class_overlay(overlay),
+        "style":  this.style_overlay(overlay.type, overlay),
+        "intents":  this.intents(overlay),
+        "src": this.imageURL(overlay)
+    }));
+    console.log("overlays =", this.overlays);
+    setTimeout(() => {
+      $('[data-toggle="tooltip"]', this.element.nativeElement).tooltip();
+    },0);
+  }
+
+  onClick = (event: any, overlay: any): void => {
+    var link = extract("link", overlay);
+    if(! geodash.util.isDefined(link))
+    {
+      var intents = extract("intents", overlay, []);
+      intents.forEach((intent:any) => {
+        let data = this.render(intent.data, <any>{"overlay": overlay});
+        this.bus.emit("intents", intent.name, data, this.name);
+      });
+      event.preventDefault();
+    }
+  }
+
+  render = (object: any, ctx: any): any => {
+    return geodash.util.arrayToObject(geodash.util.objectToArray(object).map((x:any) => {
+      return <any>{
+        "name": x.name,
+        "value": (geodash.util.isString(x.value) ? this.interpolate(x.value)(ctx) : x.value)
+      };
+    }));
   }
 
   interpolate = (template: string): any => {
       return (ctx:any) => this.compileService.compile(template, ctx);
-  };
-
+  }
 
   imageURL(overlay: any): string {
     if(geodash.util.isString(extract("image.url", overlay)) && extract("image.url", overlay).length > 0)
@@ -78,7 +113,7 @@ export class GeoDashComponentMapOverlays implements OnInit {
     return str;
   };
 
-  style(type: string, overlay: any): any {
+  style_overlay(type: string, overlay: any): any {
     var styleMap = <any>{};
 
     geodash.util.extend(styleMap, <any>{
@@ -125,7 +160,7 @@ export class GeoDashComponentMapOverlays implements OnInit {
     return styleMap;
   };
 
-  intents = (overlay: any): any => {
+  intents(overlay: any): any {
     var data = [];
     var intents = extract("intents", overlay);
     if(Array.isArray(intents))

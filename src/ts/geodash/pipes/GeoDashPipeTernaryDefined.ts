@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'ternary_defined'})
 export class GeoDashPipeTernaryDefined implements PipeTransform {
-  transform(value: any, args: any[]): any {
+  transform(value: any, definedValue: any, undefinedValue: any): any {
 
-  return value ? args[0] : args[1];
+    return value ? definedValue : undefinedValue;
 
   }
 }

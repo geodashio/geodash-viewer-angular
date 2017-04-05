@@ -7,6 +7,7 @@
     [ngClass]="tab.wrapper_classes"
     [ngStyle]="tab.wrapper_style">
     <a
+      [id]="tab.id"
       [ngClass]="tab.classes"
       [ngStyle]="tab.style"
       [attr.href]="tab.href"
@@ -16,10 +17,34 @@
       data-intent-class-on="btn-primary selected"
       data-intent-class-off="btn-default"
       [attr.data-toggle]="tab.tooltip | ternary_defined : 'tooltip': ''"
-      [attr.data-placement]="tab.tooltip.placement"
-      [attr.data-container]="tab.container"
+      [attr.data-placement]="tab | extract : 'tooltip.placement'"
+      [attr.data-container]="tab | extract : 'tooltip.container'"
       [attr.title]="tab | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
       [innerHTML]="tab.title | md2html : markdown_tab(navbar, tab)"
-      (click)="onClick($event, navbar, tab)"></a>
+      (click)="onClickTab($event, navbar, tab)"></a>
+    <div
+      *ngIf="tab.tray.items.length > 0"
+      [id]="tab.id | append : '-tray'"
+      [hidden]="!tab.tray.visible"
+      [ngClass]="tab.tray.classes"
+      [ngStyle]="tab.tray.style"
+      [style.opacity]="tab.tray.opacity">
+      <div
+        *ngFor="let item of tab.tray.items"
+        [ngClass]="item.wrapper_classes"
+        [ngStyle]="item.wrapper_style">
+        <a
+          [ngClass]="item.classes"
+          [ngStyle]="item.style"
+          [attr.href]="item.href"
+          [attr.target]="item.target"
+          [attr.data-toggle]="item.tooltip | ternary_defined : 'tooltip': ''"
+          [attr.data-placement]="item | extract : 'tooltip.placement'"
+          [attr.data-container]="item | extract : 'tooltip.container'"
+          [attr.title]="item | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
+          [innerHTML]="item.title | md2html : markdown_item(navbar, tab, item)"
+          (click)="onClickItem($event, navbar, tab, item)"></a>
+      </div>
+    </div>
   </div>
 </div>

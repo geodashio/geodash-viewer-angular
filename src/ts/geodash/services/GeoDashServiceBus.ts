@@ -1,7 +1,12 @@
 declare var extract: any;
 declare var geodash: any;
+declare var YAML: any;
 
 import { Component, Injectable, OnInit, EventEmitter } from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class GeoDashServiceBus {
@@ -12,7 +17,7 @@ export class GeoDashServiceBus {
   //public primary: EventEmitter<any>;
   //public intents: EventEmitter<any>;
 
-  constructor() {
+  constructor(private http:Http) {
     this.channels = [];
     this.listeners = {};
     ["primary", "intents", "render"].forEach((channel:any) => {
@@ -33,6 +38,39 @@ export class GeoDashServiceBus {
       );
     });
 
+  }
+
+  request(urls: string[]) {
+    if(urls.length > 0)
+    {
+      return Observable.forkJoin(urls.map((url:string):any => {
+        return this.http.get(url).map((res:Response):any => {
+          if(res.ok) {
+            var contentType = res.headers.get("content-type");
+            if(contentType == "application/json")
+            {
+              return JSON.parse(res.text());
+            }
+            else if(contentType == "text/xml; subtype=gml/2.1.2")
+            {
+              return res.text();
+            }
+            else
+            {
+              return YAML.parse(res.text());
+            }
+          }
+          else
+          {
+            return undefined;
+          }
+        })
+      }));
+    }
+    else
+    {
+      return undefined;
+    }
   }
 
   emit(channel: string, name: string, data: any, source: string): void {

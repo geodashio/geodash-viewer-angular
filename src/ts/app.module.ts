@@ -15,6 +15,9 @@ import { GeoDashPipeExtract }  from './geodash/pipes/GeoDashPipeExtract';
 import { GeoDashPipeTernaryDefined }  from './geodash/pipes/GeoDashPipeTernaryDefined';
 import { GeoDashPipeDefaultIfUndefinedOrBlank }  from './geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank';
 import { GeoDashPipeMarkdownToHTML }  from './geodash/pipes/GeoDashPipeMarkdownToHTML';
+import { GeoDashPipeSlugify }  from './geodash/pipes/GeoDashPipeSlugify';
+import { GeoDashPipeAppend }  from './geodash/pipes/GeoDashPipeAppend';
+import { GeoDashPipePrepend }  from './geodash/pipes/GeoDashPipePrepend';
 
 @NgModule({
   imports: [ BrowserModule, HttpModule ],
@@ -27,7 +30,10 @@ import { GeoDashPipeMarkdownToHTML }  from './geodash/pipes/GeoDashPipeMarkdownT
     GeoDashPipeExtract,
     GeoDashPipeTernaryDefined,
     GeoDashPipeDefaultIfUndefinedOrBlank,
-    GeoDashPipeMarkdownToHTML
+    GeoDashPipeMarkdownToHTML,
+    GeoDashPipeSlugify,
+    GeoDashPipeAppend,
+    GeoDashPipePrepend
   ],
   providers: [ ],
   bootstrap: [ GeoDashComponentMain ]

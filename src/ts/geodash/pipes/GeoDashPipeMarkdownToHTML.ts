@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'md2html'})
 export class GeoDashPipeMarkdownToHTML implements PipeTransform {
-  transform(value: any, args: any[]): any {
+  transform(value: any, flag: any): any {
 
-    return args[0] ? geodash.codec.md2html(value) : value;
+    return ((flag != false) && (flag != 0)) ? geodash.codec.md2html(value) : value;
 
   }
 }

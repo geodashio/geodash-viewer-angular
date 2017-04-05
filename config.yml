@@ -7,7 +7,7 @@ src:
     - src/less/map_navbars.less
     - src/less/map_overlays.less
   ts:
-    - src/ts/main.ts
+    - src/main.ts
     - src/ts/app.module.ts
     - src/ts/geodash/components/GeoDashComponentMain.ts
     - src/ts/geodash/components/GeoDashComponentMap.ts
@@ -43,14 +43,33 @@ compiler:
     noImplicitAny: true
     suppressImplicitAnyIndexErrors: true
     outFile: app.js
+  webpack:
+    config: "./src/webpack/webpack.prod.js"
+#  rxjs:
+#    target: es5
+#    module: system
+#    lib:
+#      - es5
+#      - es2015.iterable
+#      - es2015.collection
+#      - es2015.promise
+#      - dom
+#    rootDir: node_modules
+#    outFile: rx.js
 resources:
   - node_modules/core-js/client/shim.min.js
   - node_modules/zone.js/dist/zone.js
-  - node_modules/systemjs/dist/system.src.js
+  - node_modules/zone.js/dist/zone.min.js
+  #- node_modules/systemjs/dist/system.src.js
+  #- node_modules/systemjs/dist/system.js
   - node_modules/requirejs/require.js
   - node_modules/jquery/jquery.js
   - node_modules/jquery/jquery.min.map
   - node_modules/jquery/jquery.min.js
+  - node_modules/tether/dist/js/tehter.js
+  - node_modules/tether/dist/js/tether.min.js
+  - node_modules/bootstrap/dist/js/bootstrap.js
+  - node_modules/bootstrap/dist/js/bootstrap.min.js
   - node_modules/yamljs/dist/yaml.js
   - node_modules/yamljs/dist/yaml.debug.js
   - node_modules/yamljs/dist/yaml.legacy.js
@@ -60,5 +79,65 @@ resources:
   - node_modules/openlayers/dist/ol.js
   - node_modules/openlayers/dist/ol-debug.js
   - node_modules/jsts/dist/jsts.min.js
+  - node_modules/showdown/dist/showdown.js
+  - node_modules/showdown/dist/showdown.js.map
+  - node_modules/showdown/dist/showdown.min.js
+  - node_modules/showdown/dist/showdown.min.js.map
   - lib/geodash/geodash.js
   - lib/geodash/geodash.min.js
+system:
+  files:
+    - "src/js/systemjs.config.js"
+    - "node_modules/systemjs/dist/system.src.js"
+    - "node_modules/systemjs/dist/system.js"
+build:
+  deps.bundle.js:
+    name: deps.bundle.js
+    type: js
+    src:
+      - node_modules/jquery/jquery.min.js
+      - node_modules/tether/dist/js/tether.min.js
+      - node_modules/bootstrap/dist/js/bootstrap.min.js
+      - node_modules/openlayers/dist/ol-debug.js
+      - node_modules/jsts/dist/jsts.min.js
+      #- node_modules/core-js/client/shim.min.js
+      #- node_modules/zone.js/dist/zone.js
+      #- node_modules/systemjs/dist/system.src.js
+      - node_modules/showdown/dist/showdown.min.js
+      - lib/geodash/geodash.min.js
+      - node_modules/yamljs/dist/yaml.min.js
+      - build/templates/templates.js
+      - src/js/geodash.config.js
+      #- node_modules/rxjs/bundles/Rx.min.js
+      #- src/js/systemjs.config.js
+    outfile: deps.bundle.js
+    dest: ./build/js/
+s3:
+  src:
+    files:
+      - "build/css/*"
+      - "build/js/polyfill.min.js"
+      - "build/js/deps.bundle.js"
+      - "build/resources/shim.min.js"
+      - "build/resources/zone.min.js"
+      - "build/system/system.js"
+      - "build/system/systemjs.config.js"
+      - "build/geodash-viewer-angular/*.js"
+      #- "build/geodash-viewer-angular/*.js.map"
+  patch:
+    targets:
+      - index.html
+      - systemjs.html
+    files:
+      - app.css
+      - polyfill.min.js
+      - deps.bundle.js
+      - shim.min.js
+      - zone.min.js
+      - system.js
+      - systemjs.config.js
+      - inline.bundle.js
+      - polyfills.bundle.js
+      - styles.bundle.js
+      - vendor.bundle.js
+      - main.bundle.js
