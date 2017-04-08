@@ -74,7 +74,7 @@ overlays:
       - name: zoomIn
         properties:
           - { name: animate, value: false }
-    tooltip: { placement: right, content: "Zoom In" }
+    tooltip: { content: "Zoom In" }
     css:
       properties:
         - { name: padding, value: 8px }
@@ -125,7 +125,7 @@ navbars:
     css:
       properties:
         - name: top
-          value: 300px
+          value: 100px
     intents:
       - name: stateChanged
         properties: [{ name: city, value: "{{ tab.value }}" }]
@@ -139,7 +139,7 @@ navbars:
     tabs:
       - title: Juba
         value: juba
-        tooltip: { placement: top, content: "Juba, South Sudan" }
+        tooltip: { content: "Juba, South Sudan" }
         lat: 4.8475
         lon: 31.5953
         zoom: 14
@@ -165,14 +165,14 @@ navbars:
                   - { name: name, value: "airports" }
       - title: Sana'a
         value: sanaa
-        tooltip: { placement: top, content: "Sana'a, Yemen" }
+        tooltip: { content: "Sana'a, Yemen" }
         lat: 15.3428
         lon: 44.2004
         zoom: 12
         projection: "EPSG:4326"
       - title: Aleppo
         value: aleppo
-        tooltip: { placement: top, content: "Aleppo, Syria" }
+        tooltip: { content: "Aleppo, Syria" }
         lat: 36.2004
         lon: 37.1601
         zoom: 12

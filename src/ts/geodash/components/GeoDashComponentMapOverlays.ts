@@ -29,7 +29,9 @@ export class GeoDashComponentMapOverlays implements OnInit {
   }
 
   ngOnInit(): void {
+    geodash.var.components[this.name] = this; // register externally
     this.bus.listen("primary", "geodash:loaded", this.onLoaded);
+    this.bus.listen("render", "geodash:refresh", this.onRefresh);
   }
 
   //onLoaded(data: any, source: any): void {
@@ -37,16 +39,18 @@ export class GeoDashComponentMapOverlays implements OnInit {
     console.log("GeoDashComponentMapOverlays: ", data, source);
     this.dashboard = data["dashboard"];
     this.state = data["state"];
-    this.overlays = extract("overlays", this.dashboard, []).map((overlay: any): any => geodash.util.extend(overlay, <any>{
-        "classes": this.class_overlay(overlay),
-        "style":  this.style_overlay(overlay.type, overlay),
-        "intents":  this.intents(overlay),
-        "src": this.imageURL(overlay)
-    }));
+
+    this.refreshOverlays() // sets this.overlays
+
     console.log("overlays =", this.overlays);
     setTimeout(() => {
       $('[data-toggle="tooltip"]', this.element.nativeElement).tooltip();
     },0);
+  }
+
+  onRefresh = (name: any, data: any, source: any): void => {
+    this.state = data["state"];
+    this.refreshOverlays() // sets this.overlays
   }
 
   onClick = (event: any, overlay: any): void => {
@@ -73,6 +77,17 @@ export class GeoDashComponentMapOverlays implements OnInit {
 
   interpolate = (template: string): any => {
       return (ctx:any) => this.compileService.compile(template, ctx);
+  }
+
+  refreshOverlays = (): void => {
+
+    this.overlays = extract("overlays", this.dashboard, []).map((overlay: any): any => geodash.util.extend(overlay, <any>{
+        "classes": this.class_overlay(overlay),
+        "style":  this.style_overlay(overlay.type, overlay),
+        "intents":  this.intents(overlay),
+        "src": this.imageURL(overlay)
+    }));
+
   }
 
   imageURL(overlay: any): string {

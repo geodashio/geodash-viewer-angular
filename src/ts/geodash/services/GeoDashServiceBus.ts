@@ -2,7 +2,7 @@ declare var extract: any;
 declare var geodash: any;
 declare var YAML: any;
 
-import { Component, Injectable, OnInit, EventEmitter } from '@angular/core';
+import { Component, Injectable, OnInit, EventEmitter, ElementRef } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 
@@ -14,10 +14,7 @@ export class GeoDashServiceBus {
   public channels: EventEmitter<any>[];
   public listeners: any;
 
-  //public primary: EventEmitter<any>;
-  //public intents: EventEmitter<any>;
-
-  constructor(private http:Http) {
+  constructor(private http: Http) {
     this.channels = [];
     this.listeners = {};
     ["primary", "intents", "render"].forEach((channel:any) => {
@@ -78,9 +75,12 @@ export class GeoDashServiceBus {
   }
 
   listen(channel: string, name: string, callback: Function): void {
-    //this.listeners[channel] = extract(channel, this.listeners, {});
     this.listeners[channel][name] = extract([channel, name], this.listeners, []);
     this.listeners[channel][name].push(callback);
+  }
+
+  bubble(name: string, data: any, element: ElementRef): void {
+    element.nativeElement.dispatchEvent(new CustomEvent(name, { detail: data, bubbles: true }));
   }
 
 }

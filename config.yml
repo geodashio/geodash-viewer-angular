@@ -107,7 +107,7 @@ build:
       - lib/geodash/geodash.min.js
       - node_modules/yamljs/dist/yaml.min.js
       - build/templates/templates.js
-      - src/js/geodash.config.js
+      #- src/js/geodash.config.js
       #- node_modules/rxjs/bundles/Rx.min.js
       #- src/js/systemjs.config.js
     outfile: deps.bundle.js
@@ -116,6 +116,7 @@ s3:
   src:
     files:
       - "build/css/*"
+      - "build/js/geodash.config.min.js"
       - "build/js/polyfill.min.js"
       - "build/js/deps.bundle.js"
       - "build/resources/shim.min.js"
@@ -130,6 +131,7 @@ s3:
       - systemjs.html
     files:
       - app.css
+      - geodash.config.min.js
       - polyfill.min.js
       - deps.bundle.js
       - shim.min.js

@@ -34,21 +34,35 @@ export class GeoDashComponentMain implements OnInit {
   }
 
   ngOnInit(): void {
+    geodash.var.components[this.name] = this; // register externally
 
     this.bus.listen("primary", "geodash:maploaded", this.onMapLoaded);
     this.bus.listen("intents", "*", this.onIntent);
 
-    var urls = [
-      geodash.util.coalesce([
-        geodash.util.getHashValue("main:config"),
-        geodash.util.getQueryStringValue("main:config")
-      ])
-    ];
+    var url_config = geodash.util.coalesce([
+      geodash.util.getHashValue("main:config"),
+      geodash.util.getQueryStringValue("main:config"),
+      extract("nativeElement.dataset.dashboardConfigUrl", this.element)
+    ]);
+
+    var url_state = geodash.util.coalesce([
+      geodash.util.getHashValue("main:state"),
+      geodash.util.getQueryStringValue("main:state"),
+      extract("nativeElement.dataset.dashboardInitialStateUrl", this.element),
+      extract("nativeElement.dataset.dashboardStateUrl", this.element)
+    ]);
+
+    var urls = [url_config];
+    if(geodash.util.isDefined(url_state))
+    {
+      urls.push(url_state);
+    }
+
     this.bus.request(urls).subscribe(
       (data:any): void => {
         this.dashboard = data[0];
         this.state = geodash.var.state = geodash.init.state({
-          //"state": state,
+          "state": (data.length > 1 ? data[1] : undefined),
           //"stateschema": stateschema,
           "dashboard": this.dashboard
         });
@@ -59,7 +73,37 @@ export class GeoDashComponentMain implements OnInit {
         });*/
         geodash.var.dashboard = () => this.dashboard;
         geodash.var.state = () => this.state;
-        this.bus.emit("primary", "geodash:loaded", <any>{ dashboard: this.dashboard, state: this.state }, this.name);
+
+        var resources = this.bootloader.getResources(this.element);
+        if(Array.isArray(resources) && resources.length > 0)
+        {
+          urls = resources.map((r:any) => r.url);
+          this.bus.request(urls).subscribe(
+            (data:any): void => {
+              for(var i = 0; i < data.length; i++)
+              {
+                var loaderFn = this.bootloader.getLoaderFn(resources[i]['loader']);
+                if(geodash.util.isFunction(loaderFn))
+                {
+                  loaderFn(data[i]);
+                }
+                else
+                {
+                  geodash.var[resources[i]['name']] = data[i];
+                }
+              }
+              this.bus.emit("primary", "geodash:loaded", <any>{ dashboard: this.dashboard, state: this.state }, this.name);
+              this.bus.bubble("geodash:loaded", <any>{ dashboard: this.dashboard, state: this.state }, this.element);
+            },
+            (err:any): void => console.error(err),
+            () => console.log("Loaded resources!")
+          )
+        }
+        else
+        {
+          this.bus.emit("primary", "geodash:loaded", <any>{ dashboard: this.dashboard, state: this.state }, this.name);
+          this.bus.bubble("geodash:loaded", <any>{ dashboard: this.dashboard, state: this.state }, this.element);
+        }
       },
       (err:any): void => console.error(err),
       () => console.log("Loading complete!")
@@ -68,6 +112,7 @@ export class GeoDashComponentMain implements OnInit {
 
   onMapLoaded = (name: any, data: any, source: any): void => {
     console.log("Map Loaded!");
+    this.bus.bubble(name, <any>{ dashboard: this.dashboard, state: this.state }, this.element);
   }
 
   onIntent = (name: any, data: any, source: any): void => {

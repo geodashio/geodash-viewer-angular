@@ -18,7 +18,6 @@
       data-intent-class-off="btn-default"
       [attr.data-toggle]="tab.tooltip | ternary_defined : 'tooltip': ''"
       [attr.data-placement]="tab | extract : 'tooltip.placement'"
-      [attr.data-container]="tab | extract : 'tooltip.container'"
       [attr.title]="tab | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
       [innerHTML]="tab.title | md2html : markdown_tab(navbar, tab)"
       (click)="onClickTab($event, navbar, tab)"></a>
@@ -40,7 +39,6 @@
           [attr.target]="item.target"
           [attr.data-toggle]="item.tooltip | ternary_defined : 'tooltip': ''"
           [attr.data-placement]="item | extract : 'tooltip.placement'"
-          [attr.data-container]="item | extract : 'tooltip.container'"
           [attr.title]="item | extract : 'tooltip.content' | default_if_undefined_or_blank : ''"
           [innerHTML]="item.title | md2html : markdown_item(navbar, tab, item)"
           (click)="onClickItem($event, navbar, tab, item)"></a>

@@ -143,6 +143,7 @@ var GeoDashComponentMain = (function () {
         this.name = 'GeoDashComponentMain';
         this.onMapLoaded = function (name, data, source) {
             console.log("Map Loaded!");
+            _this.bus.bubble(name, { dashboard: _this.dashboard, state: _this.state }, _this.element);
         };
         this.onIntent = function (name, data, source) {
             console.log("Recived Intent: ", name, data, source);
@@ -295,18 +296,28 @@ var GeoDashComponentMain = (function () {
     }
     GeoDashComponentMain.prototype.ngOnInit = function () {
         var _this = this;
+        geodash.var.components[this.name] = this; // register externally
         this.bus.listen("primary", "geodash:maploaded", this.onMapLoaded);
         this.bus.listen("intents", "*", this.onIntent);
-        var urls = [
-            geodash.util.coalesce([
-                geodash.util.getHashValue("main:config"),
-                geodash.util.getQueryStringValue("main:config")
-            ])
-        ];
+        var url_config = geodash.util.coalesce([
+            geodash.util.getHashValue("main:config"),
+            geodash.util.getQueryStringValue("main:config"),
+            extract("nativeElement.dataset.dashboardConfigUrl", this.element)
+        ]);
+        var url_state = geodash.util.coalesce([
+            geodash.util.getHashValue("main:state"),
+            geodash.util.getQueryStringValue("main:state"),
+            extract("nativeElement.dataset.dashboardInitialStateUrl", this.element),
+            extract("nativeElement.dataset.dashboardStateUrl", this.element)
+        ]);
+        var urls = [url_config];
+        if (geodash.util.isDefined(url_state)) {
+            urls.push(url_state);
+        }
         this.bus.request(urls).subscribe(function (data) {
             _this.dashboard = data[0];
             _this.state = geodash.var.state = geodash.init.state({
-                //"state": state,
+                "state": (data.length > 1 ? data[1] : undefined),
                 //"stateschema": stateschema,
                 "dashboard": _this.dashboard
             });
@@ -317,7 +328,27 @@ var GeoDashComponentMain = (function () {
             });*/
             geodash.var.dashboard = function () { return _this.dashboard; };
             geodash.var.state = function () { return _this.state; };
-            _this.bus.emit("primary", "geodash:loaded", { dashboard: _this.dashboard, state: _this.state }, _this.name);
+            var resources = _this.bootloader.getResources(_this.element);
+            if (Array.isArray(resources) && resources.length > 0) {
+                urls = resources.map(function (r) { return r.url; });
+                _this.bus.request(urls).subscribe(function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var loaderFn = _this.bootloader.getLoaderFn(resources[i]['loader']);
+                        if (geodash.util.isFunction(loaderFn)) {
+                            loaderFn(data[i]);
+                        }
+                        else {
+                            geodash.var[resources[i]['name']] = data[i];
+                        }
+                    }
+                    _this.bus.emit("primary", "geodash:loaded", { dashboard: _this.dashboard, state: _this.state }, _this.name);
+                    _this.bus.bubble("geodash:loaded", { dashboard: _this.dashboard, state: _this.state }, _this.element);
+                }, function (err) { return console.error(err); }, function () { return console.log("Loaded resources!"); });
+            }
+            else {
+                _this.bus.emit("primary", "geodash:loaded", { dashboard: _this.dashboard, state: _this.state }, _this.name);
+                _this.bus.bubble("geodash:loaded", { dashboard: _this.dashboard, state: _this.state }, _this.element);
+            }
         }, function (err) { return console.error(err); }, function () { return console.log("Loading complete!"); });
     };
     return GeoDashComponentMain;
@@ -367,6 +398,7 @@ var GeoDashComponentMap = (function () {
         this.name = 'GeoDashComponentMap';
     }
     GeoDashComponentMap.prototype.ngOnInit = function () {
+        geodash.var.components[this.name] = this; // register externally
     };
     return GeoDashComponentMap;
 }());
@@ -620,6 +652,7 @@ var GeoDashComponentMapMap = (function () {
         };
     }
     GeoDashComponentMapMap.prototype.ngOnInit = function () {
+        geodash.var.components[this.name] = this; // register externally
         this.bus.listen("primary", "geodash:loaded", this.onLoaded);
         this.bus.listen("render", "geodash:changeView", this.onChangeView);
         this.bus.listen("render", "geodash:refresh", this.onRefresh);
@@ -677,46 +710,21 @@ var GeoDashComponentMapNavbars = (function () {
             console.log("GeoDashComponentMapNavbars: ", data, source);
             _this.dashboard = data["dashboard"];
             _this.state = data["state"];
-            _this.navbars = extract("navbars", _this.dashboard, []).map(function (navbar) { return ({
-                "classes": _this.class_navbar(navbar),
-                "style": _this.style_navbar(navbar),
-                "tabs": extract("tabs", navbar, []).map(function (tab) { return geodash.util.extend(tab, {
-                    "id": "geodash-map-navbars-tab-" + _this.slugify.transform(tab.value),
-                    "wrapper_classes": _this.class_tab_wrapper(navbar, tab),
-                    "wrapper_style": _this.style_tab_wrapper(navbar, tab),
-                    "classes": _this.class_tab(navbar, tab),
-                    "style": _this.style_tab(navbar, tab),
-                    "href": _this.link_url(navbar, tab),
-                    "target": _this.link_target(navbar, tab),
-                    "intents": _this.intents(navbar, tab, undefined),
-                    "tooltip": tab.tooltip,
-                    "placement": _this.tab_tooltip_placement(navbar, tab),
-                    "container": _this.tab_tooltip_container(navbar, tab),
-                    "title": tab.title,
-                    "tray": {
-                        "classes": _this.class_tray(navbar, tab),
-                        "style": _this.style_tray(navbar, tab),
-                        "visible": false,
-                        "opacity": 0.0,
-                        "items": extract("items", tab, []).map(function (item) { return geodash.util.extend(item, {
-                            "wrapper_classes": _this.class_item_wrapper(navbar, tab, item),
-                            "wrapper_style": _this.style_item_wrapper(navbar, tab, item),
-                            "classes": _this.class_item(navbar, tab, item),
-                            "style": _this.style_item(navbar, tab, item),
-                            "href": _this.link_url_item(navbar, tab, item),
-                            "target": _this.link_target_item(navbar, tab, item),
-                            "intents": _this.intents(navbar, tab, item)
-                        }); })
-                    }
-                }); })
-            }); });
+            _this.refreshNavbars(); // sets this.navbars
             console.log("navbars =", _this.navbars);
-            setTimeout(function () {
-                $('[data-toggle="tooltip"]', _this.element.nativeElement).tooltip();
-            }, 0);
+            setTimeout((function (element) {
+                return function () {
+                    $('[data-toggle="tooltip"]', element).tooltip();
+                };
+            })(_this.element.nativeElement), 0);
+        };
+        this.onRefresh = function (name, data, source) {
+            _this.state = data["state"];
+            _this.refreshNavbars(); // sets this.navbars
         };
         this.onClickTab = function (event, navbar, tab) {
             console.log("tab: ", tab);
+            $('#' + tab.id).blur();
             var items = extract("tray.items", tab, []);
             if (items.length > 0) {
                 tab.tray.visible = !tab.tray.visible;
@@ -724,7 +732,6 @@ var GeoDashComponentMapNavbars = (function () {
                 if (geodash.util.isDefined(tab.tooltip) && tab.tray.visible) {
                     $('#' + tab.id).tooltip('hide');
                 }
-                event.preventDefault();
             }
             else {
                 var intents = extract("intents", tab, []);
@@ -733,9 +740,9 @@ var GeoDashComponentMapNavbars = (function () {
                         var data = _this.render(intent.data, { "navbar": navbar, "tab": tab });
                         _this.bus.emit("intents", intent.name, data, _this.name);
                     });
-                    event.preventDefault();
                 }
             }
+            event.preventDefault();
         };
         this.onClickItem = function (event, navbar, tab, item) {
             console.log("tab: ", tab);
@@ -763,6 +770,48 @@ var GeoDashComponentMapNavbars = (function () {
         this.interpolate = function (template) {
             return function (ctx) { return _this.compileService.compile(template, ctx); };
         };
+        this.refreshNavbars = function () {
+            _this.navbars = extract("navbars", _this.dashboard, []).map(function (navbar) { return ({
+                "classes": _this.class_navbar(navbar),
+                "style": _this.style_navbar(navbar),
+                "tabs": extract("tabs", navbar, []).map(function (tab) { return geodash.util.extend(tab, {
+                    "id": "geodash-map-navbars-tab-" + _this.slugify.transform(tab.value),
+                    "wrapper_classes": _this.class_tab_wrapper(navbar, tab),
+                    "wrapper_style": _this.style_tab_wrapper(navbar, tab),
+                    "classes": _this.class_tab(navbar, tab),
+                    "style": _this.style_tab(navbar, tab),
+                    "href": _this.link_url(navbar, tab),
+                    "target": _this.link_target(navbar, tab),
+                    "intents": _this.intents(navbar, tab, undefined),
+                    "tooltip": geodash.util.extend({}, tab.tooltip, {
+                        "content": extract("tooltip.content", tab),
+                        "placement": extract("tooltip.placement", tab, _this.default_tab_tooltip_placement[extract("placement", navbar, "bottom")]),
+                        "container": "" // Issue with bootrap 4 tooltips
+                    }),
+                    "title": tab.title,
+                    "tray": {
+                        "classes": _this.class_tray(navbar, tab),
+                        "style": _this.style_tray(navbar, tab),
+                        "visible": false,
+                        "opacity": 0.0,
+                        "items": extract("items", tab, []).map(function (item) { return geodash.util.extend(item, {
+                            "wrapper_classes": _this.class_item_wrapper(navbar, tab, item),
+                            "wrapper_style": _this.style_item_wrapper(navbar, tab, item),
+                            "classes": _this.class_item(navbar, tab, item),
+                            "style": _this.style_item(navbar, tab, item),
+                            "tooltip": geodash.util.extend({}, item.tooltip, {
+                                "content": extract("tooltip.content", item),
+                                "placement": extract("tooltip.placement", item, _this.default_item_tooltip_placement[extract("placement", navbar, "bottom")]),
+                                "container": "" // Issue with bootrap 4 tooltips
+                            }),
+                            "href": _this.link_url_item(navbar, tab, item),
+                            "target": _this.link_target_item(navbar, tab, item),
+                            "intents": _this.intents(navbar, tab, item)
+                        }); })
+                    }
+                }); })
+            }); });
+        };
         this.style_tab_wrapper = function (navbar, tab) {
             var styleMap = {
                 "padding": "0px"
@@ -781,6 +830,12 @@ var GeoDashComponentMapNavbars = (function () {
         };
         this.link_url = function (navbar, tab) {
             var name = extract("page", navbar);
+            var ctx = {
+                'dashboard': _this.dashboard,
+                'state': _this.state,
+                'navbar': navbar,
+                'tab': tab
+            };
             if (geodash.util.isDefined(name)) {
                 var page = geodash.api.getPage(name);
                 if (geodash.util.isDefined(page)) {
@@ -791,7 +846,7 @@ var GeoDashComponentMapNavbars = (function () {
                 }
             }
             else {
-                return extract("link.url", tab, "");
+                return _this.interpolate(extract("link.url", tab, ""))(ctx);
             }
         };
         this.intents = function (navbar, tab, item) {
@@ -892,31 +947,47 @@ var GeoDashComponentMapNavbars = (function () {
         };
         this.link_url_item = function (navbar, tab, item) {
             var name = extract("page", navbar);
+            var ctx = {
+                'dashboard': _this.dashboard,
+                'state': _this.state,
+                'navbar': navbar,
+                'tab': tab,
+                'item': item
+            };
             if (geodash.util.isDefined(name)) {
                 var page = geodash.api.getPage(name);
                 if (geodash.util.isDefined(page)) {
-                    return _this.interpolate(page)({ 'state': _this.state });
+                    return _this.interpolate(page)(ctx);
                 }
                 else {
                     return "";
                 }
             }
             else {
-                return extract("link.url", item, "");
+                return _this.interpolate(extract("link.url", item, ""))(ctx);
             }
         };
-        this.default_tooltip_placement =
+        this.default_tab_tooltip_placement =
             {
                 "top": "bottom",
                 "left": "right",
                 "bottom": "top",
                 "right": "left"
             };
+        this.default_item_tooltip_placement =
+            {
+                "top": "right",
+                "left": "bottom",
+                "bottom": "right",
+                "right": "bottom"
+            };
         this.state = {};
         this.navbars = [];
     }
     GeoDashComponentMapNavbars.prototype.ngOnInit = function () {
+        geodash.var.components[this.name] = this; // register externally
         this.bus.listen("primary", "geodash:loaded", this.onLoaded);
+        this.bus.listen("render", "geodash:refresh", this.onRefresh);
     };
     GeoDashComponentMapNavbars.prototype.class_navbar = function (navbar) {
         var str = "geodash-map-navbar";
@@ -1024,12 +1095,6 @@ var GeoDashComponentMapNavbars = (function () {
             return extract("markdown", navbar) ? 1 : 0;
         }
         return 1;
-    };
-    GeoDashComponentMapNavbars.prototype.tab_tooltip_container = function (navbar, tab) {
-        return extract("tooltip.container", tab, "body");
-    };
-    GeoDashComponentMapNavbars.prototype.tab_tooltip_placement = function (navbar, tab) {
-        return extract("tooltip.placement", tab, this.default_tooltip_placement[extract("placement", navbar, "bottom")]);
     };
     GeoDashComponentMapNavbars.prototype.class_tray = function (navbar, tab) {
         var classes = extract("tray.css.classes", tab);
@@ -1165,16 +1230,15 @@ var GeoDashComponentMapOverlays = (function () {
             console.log("GeoDashComponentMapOverlays: ", data, source);
             _this.dashboard = data["dashboard"];
             _this.state = data["state"];
-            _this.overlays = extract("overlays", _this.dashboard, []).map(function (overlay) { return geodash.util.extend(overlay, {
-                "classes": _this.class_overlay(overlay),
-                "style": _this.style_overlay(overlay.type, overlay),
-                "intents": _this.intents(overlay),
-                "src": _this.imageURL(overlay)
-            }); });
+            _this.refreshOverlays(); // sets this.overlays
             console.log("overlays =", _this.overlays);
             setTimeout(function () {
                 $('[data-toggle="tooltip"]', _this.element.nativeElement).tooltip();
             }, 0);
+        };
+        this.onRefresh = function (name, data, source) {
+            _this.state = data["state"];
+            _this.refreshOverlays(); // sets this.overlays
         };
         this.onClick = function (event, overlay) {
             var link = extract("link", overlay);
@@ -1198,11 +1262,21 @@ var GeoDashComponentMapOverlays = (function () {
         this.interpolate = function (template) {
             return function (ctx) { return _this.compileService.compile(template, ctx); };
         };
+        this.refreshOverlays = function () {
+            _this.overlays = extract("overlays", _this.dashboard, []).map(function (overlay) { return geodash.util.extend(overlay, {
+                "classes": _this.class_overlay(overlay),
+                "style": _this.style_overlay(overlay.type, overlay),
+                "intents": _this.intents(overlay),
+                "src": _this.imageURL(overlay)
+            }); });
+        };
         this.state = {};
         this.overlays = [];
     }
     GeoDashComponentMapOverlays.prototype.ngOnInit = function () {
+        geodash.var.components[this.name] = this; // register externally
         this.bus.listen("primary", "geodash:loaded", this.onLoaded);
+        this.bus.listen("render", "geodash:refresh", this.onRefresh);
     };
     GeoDashComponentMapOverlays.prototype.imageURL = function (overlay) {
         if (geodash.util.isString(extract("image.url", overlay)) && extract("image.url", overlay).length > 0) {
@@ -1520,7 +1594,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var GeoDashServiceBootloader = (function () {
     function GeoDashServiceBootloader(http) {
+        var _this = this;
         this.http = http;
+        this.getLoaderFn = function (name) {
+            var loaderFn;
+            if (geodash.util.isString(name) && name.length > 0) {
+                if (geodash.util.isDefined(_this.loaders)) {
+                    for (var i = 0; i < _this.loaders.length; i++) {
+                        var candidate = extract(name, _this.loaders[i]);
+                        if (geodash.util.isFunction(candidate)) {
+                            loaderFn = candidate;
+                            break;
+                        }
+                    }
+                }
+            }
+            return loaderFn;
+        };
+        this.getResources = function (element) {
+            var resources = extract("nativeElement.dataset.dashboardResources", element);
+            if (geodash.util.isDefined(resources) && resources != "") {
+                if (geodash.util.isString(resources)) {
+                    try {
+                        resources = JSON.parse(resources);
+                    }
+                    catch (err) {
+                        console.log("Error: could not load resources.");
+                    }
+                }
+            }
+            return resources;
+        };
+        this.loaders = extract("config.bootloader.loaders", geodash) || [geodash.bootloader.loaders];
     }
     return GeoDashServiceBootloader;
 }());
@@ -1559,8 +1664,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var GeoDashServiceBus = (function () {
-    //public primary: EventEmitter<any>;
-    //public intents: EventEmitter<any>;
     function GeoDashServiceBus(http) {
         var _this = this;
         this.http = http;
@@ -1608,9 +1711,11 @@ var GeoDashServiceBus = (function () {
         this.channels[channel].emit([name, data, source]);
     };
     GeoDashServiceBus.prototype.listen = function (channel, name, callback) {
-        //this.listeners[channel] = extract(channel, this.listeners, {});
         this.listeners[channel][name] = extract([channel, name], this.listeners, []);
         this.listeners[channel][name].push(callback);
+    };
+    GeoDashServiceBus.prototype.bubble = function (name, data, element) {
+        element.nativeElement.dispatchEvent(new CustomEvent(name, { detail: data, bubbles: true }));
     };
     return GeoDashServiceBus;
 }());
@@ -1648,16 +1753,21 @@ var GeoDashServiceCompile = (function () {
         var _this = this;
         //console.log("compiling ", template, "with context", ctx);
         //var m = "{{ feature.attributes.date | date : 'months' }} months".match(new RegExp("({{.*}}|.*)", "gi"));
-        var parts = template.split(new RegExp("({{[^}]*}})", "gi")).map(function (x) {
-            var y = _this.splitter.exec(x);
-            if (y) {
-                return extract(y[1], ctx, "");
-            }
-            else {
-                return x;
-            }
-        });
-        return parts.join("");
+        if (geodash.util.isString(template)) {
+            var parts = template.split(new RegExp("({{[^}]*}})", "gi")).map(function (x) {
+                var y = _this.splitter.exec(x);
+                if (y) {
+                    return extract(y[1], ctx, "");
+                }
+                else {
+                    return x;
+                }
+            });
+            return parts.join("");
+        }
+        else {
+            return "";
+        }
     };
     return GeoDashServiceCompile;
 }());
@@ -1696,7 +1806,7 @@ var GeoDashPipeSlugify = (function () {
     }
     GeoDashPipeSlugify.prototype.transform = function (value) {
         if (geodash.util.isString(value)) {
-            return value.toLowerCase().toLowerCase(" ", "_").replace("-", "_").replace("=", "_");
+            return value.toLowerCase().replace(" ", "_").replace("-", "_").replace("=", "_");
         }
         else {
             return "";

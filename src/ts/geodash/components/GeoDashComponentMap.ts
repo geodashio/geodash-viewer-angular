@@ -19,6 +19,7 @@ export class GeoDashComponentMap implements OnInit {
   }
 
   ngOnInit(): void {
+    geodash.var.components[this.name] = this; // register externally
 
   }
 

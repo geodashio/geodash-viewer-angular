@@ -1,9 +1,28 @@
+/* Used for application-specific onverrides
+ *
+ */
 geodash.config = {
   "templates": [
     "templates.merged",  // geodash.templates.merged.*
     "templates.server",  // geodash.templates.server.*
     "templates.static"   // geodash.templates.static.*
   ],
+  "bootloader": {
+    "loaders": [{
+      "endpoints": function(data) {
+        if(geodash.util.isDefined(data))
+        {
+          geodash.util.extend(geodash.var.endpoints, data);
+        }
+      },
+      "pages": function(data) {
+        if(geodash.util.isDefined(data))
+        {
+          geodash.util.extend(geodash.var.pages, data);
+        }
+      }
+    }]
+  },
   "click_radius": 2.0,
   "search": {
     "datasets": [geodash.typeahead.datasets],

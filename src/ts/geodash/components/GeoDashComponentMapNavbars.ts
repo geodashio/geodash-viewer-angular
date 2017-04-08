@@ -23,24 +23,34 @@ export class GeoDashComponentMapNavbars implements OnInit {
   private state: any;
   private navbars: any;
 
-  public default_tooltip_placement: any;
+  public default_tab_tooltip_placement: any;
+  public default_item_tooltip_placement: any;
 
   name = 'GeoDashComponentMapNavbars';
 
   constructor(private element: ElementRef, private bus: GeoDashServiceBus, private compileService: GeoDashServiceCompile, private slugify: GeoDashPipeSlugify) {
-    this.default_tooltip_placement =
+    this.default_tab_tooltip_placement =
     {
       "top": "bottom",
       "left": "right",
       "bottom": "top",
       "right": "left"
     };
+    this.default_item_tooltip_placement =
+    {
+      "top": "right",
+      "left": "bottom",
+      "bottom": "right",
+      "right": "bottom"
+    };
     this.state = {};
     this.navbars = [];
   }
 
   ngOnInit(): void {
+    geodash.var.components[this.name] = this; // register externally
     this.bus.listen("primary", "geodash:loaded", this.onLoaded);
+    this.bus.listen("render", "geodash:refresh", this.onRefresh);
   }
 
   //onLoaded(data: any, source: any): void {
@@ -48,47 +58,25 @@ export class GeoDashComponentMapNavbars implements OnInit {
     console.log("GeoDashComponentMapNavbars: ", data, source);
     this.dashboard = data["dashboard"];
     this.state = data["state"];
-    this.navbars = extract("navbars", this.dashboard, []).map((navbar: any): any => <any>{
-        "classes": this.class_navbar(navbar),
-        "style":  this.style_navbar(navbar),
-        "tabs": extract("tabs", navbar, []).map((tab: any): any => geodash.util.extend(tab, <any>{
-          "id": "geodash-map-navbars-tab-" + this.slugify.transform(tab.value),
-          "wrapper_classes":  this.class_tab_wrapper(navbar, tab),
-          "wrapper_style":  this.style_tab_wrapper(navbar, tab),
-          "classes":  this.class_tab(navbar, tab),
-          "style":  this.style_tab(navbar, tab),
-          "href":  this.link_url(navbar, tab),
-          "target":  this.link_target(navbar, tab),
-          "intents":  this.intents(navbar, tab, undefined),
-          "tooltip": tab.tooltip,
-          "placement":  this.tab_tooltip_placement(navbar, tab),
-          "container":  this.tab_tooltip_container(navbar, tab),
-          "title": tab.title,
-          "tray": {
-            "classes": this.class_tray(navbar, tab),
-            "style": this.style_tray(navbar, tab),
-            "visible": false,
-            "opacity": 0.0,
-            "items": extract("items", tab, []).map((item: any): any => geodash.util.extend(item, <any>{
-              "wrapper_classes":  this.class_item_wrapper(navbar, tab, item),
-              "wrapper_style":  this.style_item_wrapper(navbar, tab, item),
-              "classes":  this.class_item(navbar, tab, item),
-              "style":  this.style_item(navbar, tab, item),
-              "href":  this.link_url_item(navbar, tab, item),
-              "target":  this.link_target_item(navbar, tab, item),
-              "intents":  this.intents(navbar, tab, item)
-            }))
-          }
-        }))
-    });
+
+    this.refreshNavbars() // sets this.navbars
+
     console.log("navbars =", this.navbars);
-    setTimeout(() => {
-      $('[data-toggle="tooltip"]', this.element.nativeElement).tooltip();
-    },0);
+    setTimeout((function(element){
+      return function() {
+        $('[data-toggle="tooltip"]', element).tooltip();
+      };
+    })(this.element.nativeElement), 0);
+  }
+
+  onRefresh = (name: any, data: any, source: any): void => {
+    this.state = data["state"];
+    this.refreshNavbars() // sets this.navbars
   }
 
   onClickTab = (event: any, navbar: any, tab: any): void => {
     console.log("tab: ", tab);
+    $('#'+ tab.id).blur();
     var items = extract("tray.items", tab, []);
     if(items.length > 0 )
     {
@@ -97,7 +85,6 @@ export class GeoDashComponentMapNavbars implements OnInit {
       if(geodash.util.isDefined(tab.tooltip) && tab.tray.visible) {
         $('#'+ tab.id).tooltip('hide');
       }
-      event.preventDefault();
     }
     else
     {
@@ -108,9 +95,9 @@ export class GeoDashComponentMapNavbars implements OnInit {
           let data = this.render(intent.data, <any>{"navbar": navbar, "tab": tab});
           this.bus.emit("intents", intent.name, data, this.name);
         });
-        event.preventDefault();
       }
     }
+    event.preventDefault();
   }
 
   onClickItem = (event: any, navbar: any, tab: any, item: any): void => {
@@ -142,6 +129,63 @@ export class GeoDashComponentMapNavbars implements OnInit {
   interpolate = (template: string): any => {
       return (ctx:any) => this.compileService.compile(template, ctx);
   }
+
+  refreshNavbars = (): void => {
+
+    this.navbars = extract("navbars", this.dashboard, []).map((navbar: any): any => <any>{
+        "classes": this.class_navbar(navbar),
+        "style":  this.style_navbar(navbar),
+        "tabs": extract("tabs", navbar, []).map((tab: any): any => geodash.util.extend(tab, <any>{
+          "id": "geodash-map-navbars-tab-" + this.slugify.transform(tab.value),
+          "wrapper_classes":  this.class_tab_wrapper(navbar, tab),
+          "wrapper_style":  this.style_tab_wrapper(navbar, tab),
+          "classes":  this.class_tab(navbar, tab),
+          "style":  this.style_tab(navbar, tab),
+          "href":  this.link_url(navbar, tab),
+          "target":  this.link_target(navbar, tab),
+          "intents":  this.intents(navbar, tab, undefined),
+          "tooltip": geodash.util.extend({}, tab.tooltip, <any>{
+            "content": extract("tooltip.content", tab),
+            "placement": extract(
+              "tooltip.placement",
+              tab,
+              this.default_tab_tooltip_placement[extract("placement", navbar, "bottom")]
+            ),
+            "container": "" // Issue with bootrap 4 tooltips
+            //"container": extract("tooltip.container", tab, "body")
+          }),
+          "title": tab.title,
+          "tray": {
+            "classes": this.class_tray(navbar, tab),
+            "style": this.style_tray(navbar, tab),
+            "visible": false,
+            "opacity": 0.0,
+            "items": extract("items", tab, []).map((item: any): any => geodash.util.extend(item, <any>{
+              "wrapper_classes":  this.class_item_wrapper(navbar, tab, item),
+              "wrapper_style":  this.style_item_wrapper(navbar, tab, item),
+              "classes":  this.class_item(navbar, tab, item),
+              "style":  this.style_item(navbar, tab, item),
+              "tooltip": geodash.util.extend({}, item.tooltip, <any>{
+                "content": extract("tooltip.content", item),
+                "placement": extract(
+                  "tooltip.placement",
+                  item,
+                  this.default_item_tooltip_placement[extract("placement", navbar, "bottom")]
+                ),
+                "container": "" // Issue with bootrap 4 tooltips
+                //"container": extract("tooltip.container", item, "body")
+              }),
+              "href":  this.link_url_item(navbar, tab, item),
+              "target":  this.link_target_item(navbar, tab, item),
+              "intents":  this.intents(navbar, tab, item)
+            }))
+          }
+        }))
+    });
+
+  }
+
+
 
   class_navbar(navbar: any): any {
     var str = "geodash-map-navbar";
@@ -307,6 +351,12 @@ export class GeoDashComponentMapNavbars implements OnInit {
 
   link_url = (navbar: any, tab: any) => {
     var name = extract("page", navbar);
+    var ctx  = <any>{
+      'dashboard': this.dashboard,
+      'state': this.state,
+      'navbar': navbar,
+      'tab': tab
+    };
     if(geodash.util.isDefined(name))
     {
       var page = geodash.api.getPage(name);
@@ -321,7 +371,7 @@ export class GeoDashComponentMapNavbars implements OnInit {
     }
     else
     {
-      return extract("link.url", tab, "");
+      return this.interpolate(extract("link.url", tab, ""))(ctx);
     }
   }
 
@@ -379,18 +429,6 @@ export class GeoDashComponentMapNavbars implements OnInit {
     }
 
     return 1;
-  }
-
-  tab_tooltip_container(navbar: any, tab: any): any {
-    return extract("tooltip.container", tab, "body");
-  }
-
-  tab_tooltip_placement(navbar: any, tab: any): any {
-    return extract(
-      "tooltip.placement",
-      tab,
-      this.default_tooltip_placement[extract("placement", navbar, "bottom")]
-    );
   }
 
   class_tray(navbar: any, tab: any): any {
@@ -611,12 +649,19 @@ export class GeoDashComponentMapNavbars implements OnInit {
 
   link_url_item = (navbar: any, tab: any, item:any) => {
     var name = extract("page", navbar);
+    var ctx  = <any>{
+      'dashboard': this.dashboard,
+      'state': this.state,
+      'navbar': navbar,
+      'tab': tab,
+      'item': item
+    };
     if(geodash.util.isDefined(name))
     {
       var page = geodash.api.getPage(name);
       if(geodash.util.isDefined(page))
       {
-        return this.interpolate(page)(<any>{'state': this.state });
+        return this.interpolate(page)(ctx);
       }
       else
       {
@@ -625,7 +670,7 @@ export class GeoDashComponentMapNavbars implements OnInit {
     }
     else
     {
-      return extract("link.url", item, "");
+      return this.interpolate(extract("link.url", item, ""))(ctx);
     }
   }
 

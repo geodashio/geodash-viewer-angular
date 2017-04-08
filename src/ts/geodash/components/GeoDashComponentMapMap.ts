@@ -26,6 +26,7 @@ export class GeoDashComponentMapMap implements OnInit {
   }
 
   ngOnInit(): void {
+    geodash.var.components[this.name] = this; // register externally
     this.bus.listen("primary", "geodash:loaded", this.onLoaded);
     this.bus.listen("render", "geodash:changeView", this.onChangeView);
     this.bus.listen("render", "geodash:refresh", this.onRefresh);
