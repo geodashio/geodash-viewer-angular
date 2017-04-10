@@ -41,7 +41,7 @@
       }
     },
     bundles: {
-      'build/js/app.js': ['main'],
+      'build/js/app.js': ['main', 'geodash-viewer-angular.git/src/main'],
       "npm:rxjs-system-bundle/Rx.system.min.js": [
         "rxjs",
         "rxjs/*",

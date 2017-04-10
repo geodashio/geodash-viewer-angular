@@ -254,53 +254,6 @@
 /* Filter */
 /* Sidebar */
 /* Navbars */
-.geodash-placement-top {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: auto;
-  right: 0px;
-}
-.geodash-placement-left {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: auto;
-}
-.geodash-placement-bottom {
-  position: absolute;
-  top: auto;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-}
-.geodash-placement-right {
-  position: absolute;
-  top: 0px;
-  left: auto;
-  bottom: 0px;
-  right: 0px;
-}
-
-/* Widely Used Variables */
-/* Original 768px */
-/* Defaults for Tooltips */
-/* 7 x 9s */
-/* Defaults for Modals */
-/* 5 x 9s */
-/* 6 x 9s */
-/* Defaults for Popups */
-/* 5 x 9s */
-/* Defaults for Controls */
-/* 4 x 9s */
-/* Welcome */
-/* Breadcrumbs */
-/* Overlays */
-/* Legend */
-/* Filter */
-/* Sidebar */
-/* Navbars */
 .geodash-popup-plain {
   word-wrap: break-word;
   text-align: center;
@@ -453,4 +406,51 @@
   border: 4px solid blue;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* Widely Used Variables */
+/* Original 768px */
+/* Defaults for Tooltips */
+/* 7 x 9s */
+/* Defaults for Modals */
+/* 5 x 9s */
+/* 6 x 9s */
+/* Defaults for Popups */
+/* 5 x 9s */
+/* Defaults for Controls */
+/* 4 x 9s */
+/* Welcome */
+/* Breadcrumbs */
+/* Overlays */
+/* Legend */
+/* Filter */
+/* Sidebar */
+/* Navbars */
+.geodash-placement-top {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: auto;
+  right: 0px;
+}
+.geodash-placement-left {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: auto;
+}
+.geodash-placement-bottom {
+  position: absolute;
+  top: auto;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+.geodash-placement-right {
+  position: absolute;
+  top: 0px;
+  left: auto;
+  bottom: 0px;
+  right: 0px;
 }

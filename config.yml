@@ -1,4 +1,14 @@
 ---
+name: geodash-viewer-angular
+plugins:
+  - file:///home/vagrant/geodash-plugin-angular-component-main.git
+  - file:///home/vagrant/geodash-plugin-angular-component-map.git
+  - file:///home/vagrant/geodash-plugin-angular-component-map-map.git
+  - file:///home/vagrant/geodash-plugin-angular-component-map-navbars.git
+  - file:///home/vagrant/geodash-plugin-angular-component-map-overlays.git
+  - file:///home/vagrant/geodash-plugin-angular-pipes.git
+  - file:///home/vagrant/geodash-plugin-angular-services.git
+  - file:///home/vagrant/geodash-plugin-angular-base.git
 src:
   less:
     - src/less/geodashviewer.less
@@ -112,6 +122,26 @@ build:
       #- src/js/systemjs.config.js
     outfile: deps.bundle.js
     dest: ./build/js/
+  app.css:
+    name: app.css
+    type: less
+    src:
+      - src/less/geodashviewer.less
+    #- { type: variable, name: compile_less } # GeoDash will concat array variables
+    outfile: app.css
+    dest: ./build/css/
+    paths: ./src/less/
+  templates.js:
+    name: templates.js
+    outfile: templates.js
+    dest: build/templates/
+  app.js:
+    name: app.js
+    src:
+      - src/main.ts
+      - src/ts/app.module.ts
+    dest: build/js
+    outfile: app.js
 s3:
   src:
     files:

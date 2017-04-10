@@ -4,20 +4,20 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 /* Components */
-import { GeoDashComponentMain }  from './geodash/components/GeoDashComponentMain';
-import { GeoDashComponentMap }  from './geodash/components/GeoDashComponentMap';
-import { GeoDashComponentMapMap }  from './geodash/components/GeoDashComponentMapMap';
-import { GeoDashComponentMapOverlays }  from './geodash/components/GeoDashComponentMapOverlays';
-import { GeoDashComponentMapNavbars }  from './geodash/components/GeoDashComponentMapNavbars';
+import { GeoDashComponentMain }  from 'GeoDashComponentMain';
+import { GeoDashComponentMap }  from 'GeoDashComponentMap';
+import { GeoDashComponentMapMap }  from 'GeoDashComponentMapMap';
+import { GeoDashComponentMapOverlays }  from 'GeoDashComponentMapOverlays';
+import { GeoDashComponentMapNavbars }  from 'GeoDashComponentMapNavbars';
 
 /* Pipes */
-import { GeoDashPipeExtract }  from './geodash/pipes/GeoDashPipeExtract';
-import { GeoDashPipeTernaryDefined }  from './geodash/pipes/GeoDashPipeTernaryDefined';
-import { GeoDashPipeDefaultIfUndefinedOrBlank }  from './geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank';
-import { GeoDashPipeMarkdownToHTML }  from './geodash/pipes/GeoDashPipeMarkdownToHTML';
-import { GeoDashPipeSlugify }  from './geodash/pipes/GeoDashPipeSlugify';
-import { GeoDashPipeAppend }  from './geodash/pipes/GeoDashPipeAppend';
-import { GeoDashPipePrepend }  from './geodash/pipes/GeoDashPipePrepend';
+import { GeoDashPipeExtract }  from 'GeoDashPipeExtract';
+import { GeoDashPipeTernaryDefined }  from 'GeoDashPipeTernaryDefined';
+import { GeoDashPipeDefaultIfUndefinedOrBlank }  from 'GeoDashPipeDefaultIfUndefinedOrBlank';
+import { GeoDashPipeMarkdownToHTML }  from 'GeoDashPipeMarkdownToHTML';
+import { GeoDashPipeSlugify }  from 'GeoDashPipeSlugify';
+import { GeoDashPipeAppend }  from 'GeoDashPipeAppend';
+import { GeoDashPipePrepend }  from 'GeoDashPipePrepend';
 
 @NgModule({
   imports: [ BrowserModule, HttpModule ],

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("ts/geodash/services/GeoDashServiceBus", ["@angular/core", "@angular/http", "rxjs/Rx", "rxjs/add/operator/map"], function (exports_1, context_1) {
+System.register("geodash-plugin-angular-services.git/services/GeoDashServiceBus", ["@angular/core", "@angular/http", "rxjs/Rx", "rxjs/add/operator/map"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var core_1, http_1, Rx_1, GeoDashServiceBus;
@@ -90,7 +90,7 @@ System.register("ts/geodash/services/GeoDashServiceBus", ["@angular/core", "@ang
         }
     };
 });
-System.register("ts/geodash/services/GeoDashServiceBootloader", ["@angular/core", "@angular/http", "rxjs/add/operator/map"], function (exports_2, context_2) {
+System.register("geodash-plugin-angular-services.git/services/GeoDashServiceBootloader", ["@angular/core", "@angular/http", "rxjs/add/operator/map"], function (exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
     var core_2, http_2, GeoDashServiceBootloader;
@@ -151,7 +151,7 @@ System.register("ts/geodash/services/GeoDashServiceBootloader", ["@angular/core"
         }
     };
 });
-System.register("ts/geodash/services/GeoDashServiceCompile", ["@angular/core"], function (exports_3, context_3) {
+System.register("geodash-plugin-angular-services.git/services/GeoDashServiceCompile", ["@angular/core"], function (exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
     var core_3, GeoDashServiceCompile;
@@ -196,7 +196,7 @@ System.register("ts/geodash/services/GeoDashServiceCompile", ["@angular/core"], 
         }
     };
 });
-System.register("ts/geodash/components/GeoDashComponentMain", ["@angular/core", "ts/geodash/services/GeoDashServiceBus", "ts/geodash/services/GeoDashServiceBootloader", "ts/geodash/services/GeoDashServiceCompile"], function (exports_4, context_4) {
+System.register("geodash-plugin-angular-component-main.git/components/GeoDashComponentMain", ["@angular/core", "geodash-plugin-angular-services.git/services/GeoDashServiceBus", "geodash-plugin-angular-services.git/services/GeoDashServiceBootloader", "geodash-plugin-angular-services.git/services/GeoDashServiceCompile"], function (exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
     var core_4, GeoDashServiceBus_1, GeoDashServiceBootloader_1, GeoDashServiceCompile_1, templates, GeoDashComponentMain;
@@ -453,7 +453,7 @@ System.register("ts/geodash/components/GeoDashComponentMain", ["@angular/core", 
         }
     };
 });
-System.register("ts/geodash/components/GeoDashComponentMap", ["@angular/core", "ts/geodash/services/GeoDashServiceBus"], function (exports_5, context_5) {
+System.register("geodash-plugin-angular-component-map.git/components/GeoDashComponentMap", ["@angular/core", "geodash-plugin-angular-services.git/services/GeoDashServiceBus"], function (exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
     var core_5, GeoDashServiceBus_2, GeoDashComponentMap;
@@ -489,7 +489,7 @@ System.register("ts/geodash/components/GeoDashComponentMap", ["@angular/core", "
         }
     };
 });
-System.register("ts/geodash/components/GeoDashComponentMapMap", ["@angular/core", "ts/geodash/services/GeoDashServiceBus", "ts/geodash/services/GeoDashServiceCompile"], function (exports_6, context_6) {
+System.register("geodash-plugin-angular-component-map-map.git/components/GeoDashComponentMapMap", ["@angular/core", "geodash-plugin-angular-services.git/services/GeoDashServiceBus", "geodash-plugin-angular-services.git/services/GeoDashServiceCompile"], function (exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
     var core_6, GeoDashServiceBus_3, GeoDashServiceCompile_2, GeoDashComponentMapMap;
@@ -740,7 +740,7 @@ System.register("ts/geodash/components/GeoDashComponentMapMap", ["@angular/core"
         }
     };
 });
-System.register("ts/geodash/components/GeoDashComponentMapOverlays", ["@angular/core", "ts/geodash/services/GeoDashServiceBus", "ts/geodash/services/GeoDashServiceCompile"], function (exports_7, context_7) {
+System.register("geodash-plugin-angular-component-map-overlays.git/components/GeoDashComponentMapOverlays", ["@angular/core", "geodash-plugin-angular-services.git/services/GeoDashServiceBus", "geodash-plugin-angular-services.git/services/GeoDashServiceCompile"], function (exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
     var core_7, GeoDashServiceBus_4, GeoDashServiceCompile_3, GeoDashComponentMapOverlays;
@@ -920,7 +920,7 @@ System.register("ts/geodash/components/GeoDashComponentMapOverlays", ["@angular/
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeSlugify", ["@angular/core"], function (exports_8, context_8) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeSlugify", ["@angular/core"], function (exports_8, context_8) {
     "use strict";
     var __moduleName = context_8 && context_8.id;
     var core_8, GeoDashPipeSlugify;
@@ -951,7 +951,7 @@ System.register("ts/geodash/pipes/GeoDashPipeSlugify", ["@angular/core"], functi
         }
     };
 });
-System.register("ts/geodash/components/GeoDashComponentMapNavbars", ["@angular/core", "ts/geodash/services/GeoDashServiceBus", "ts/geodash/services/GeoDashServiceCompile", "ts/geodash/pipes/GeoDashPipeSlugify"], function (exports_9, context_9) {
+System.register("geodash-plugin-angular-component-map-navbars.git/components/GeoDashComponentMapNavbars", ["@angular/core", "geodash-plugin-angular-services.git/services/GeoDashServiceBus", "geodash-plugin-angular-services.git/services/GeoDashServiceCompile", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeSlugify"], function (exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
     var core_9, GeoDashServiceBus_5, GeoDashServiceCompile_4, GeoDashPipeSlugify_1, GeoDashComponentMapNavbars;
@@ -1468,7 +1468,7 @@ System.register("ts/geodash/components/GeoDashComponentMapNavbars", ["@angular/c
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeExtract", ["@angular/core"], function (exports_10, context_10) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeExtract", ["@angular/core"], function (exports_10, context_10) {
     "use strict";
     var __moduleName = context_10 && context_10.id;
     var core_10, GeoDashPipeExtract;
@@ -1498,7 +1498,7 @@ System.register("ts/geodash/pipes/GeoDashPipeExtract", ["@angular/core"], functi
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeTernaryDefined", ["@angular/core"], function (exports_11, context_11) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeTernaryDefined", ["@angular/core"], function (exports_11, context_11) {
     "use strict";
     var __moduleName = context_11 && context_11.id;
     var core_11, GeoDashPipeTernaryDefined;
@@ -1524,7 +1524,7 @@ System.register("ts/geodash/pipes/GeoDashPipeTernaryDefined", ["@angular/core"],
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank", ["@angular/core"], function (exports_12, context_12) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeDefaultIfUndefinedOrBlank", ["@angular/core"], function (exports_12, context_12) {
     "use strict";
     var __moduleName = context_12 && context_12.id;
     var core_12, GeoDashPipeDefaultIfUndefinedOrBlank;
@@ -1550,7 +1550,7 @@ System.register("ts/geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank", ["@angu
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeMarkdownToHTML", ["@angular/core"], function (exports_13, context_13) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeMarkdownToHTML", ["@angular/core"], function (exports_13, context_13) {
     "use strict";
     var __moduleName = context_13 && context_13.id;
     var core_13, GeoDashPipeMarkdownToHTML;
@@ -1576,7 +1576,7 @@ System.register("ts/geodash/pipes/GeoDashPipeMarkdownToHTML", ["@angular/core"],
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipeAppend", ["@angular/core"], function (exports_14, context_14) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipeAppend", ["@angular/core"], function (exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
     var core_14, GeoDashPipeAppend;
@@ -1607,7 +1607,7 @@ System.register("ts/geodash/pipes/GeoDashPipeAppend", ["@angular/core"], functio
         }
     };
 });
-System.register("ts/geodash/pipes/GeoDashPipePrepend", ["@angular/core"], function (exports_15, context_15) {
+System.register("geodash-plugin-angular-pipes.git/pipes/GeoDashPipePrepend", ["@angular/core"], function (exports_15, context_15) {
     "use strict";
     var __moduleName = context_15 && context_15.id;
     var core_15, GeoDashPipePrepend;
@@ -1638,7 +1638,7 @@ System.register("ts/geodash/pipes/GeoDashPipePrepend", ["@angular/core"], functi
         }
     };
 });
-System.register("ts/app.module", ["@angular/core", "@angular/http", "@angular/platform-browser", "ts/geodash/components/GeoDashComponentMain", "ts/geodash/components/GeoDashComponentMap", "ts/geodash/components/GeoDashComponentMapMap", "ts/geodash/components/GeoDashComponentMapOverlays", "ts/geodash/components/GeoDashComponentMapNavbars", "ts/geodash/pipes/GeoDashPipeExtract", "ts/geodash/pipes/GeoDashPipeTernaryDefined", "ts/geodash/pipes/GeoDashPipeDefaultIfUndefinedOrBlank", "ts/geodash/pipes/GeoDashPipeMarkdownToHTML", "ts/geodash/pipes/GeoDashPipeSlugify", "ts/geodash/pipes/GeoDashPipeAppend", "ts/geodash/pipes/GeoDashPipePrepend"], function (exports_16, context_16) {
+System.register("geodash-viewer-angular.git/src/ts/app.module", ["@angular/core", "@angular/http", "@angular/platform-browser", "geodash-plugin-angular-component-main.git/components/GeoDashComponentMain", "geodash-plugin-angular-component-map.git/components/GeoDashComponentMap", "geodash-plugin-angular-component-map-map.git/components/GeoDashComponentMapMap", "geodash-plugin-angular-component-map-overlays.git/components/GeoDashComponentMapOverlays", "geodash-plugin-angular-component-map-navbars.git/components/GeoDashComponentMapNavbars", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeExtract", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeTernaryDefined", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeDefaultIfUndefinedOrBlank", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeMarkdownToHTML", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeSlugify", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipeAppend", "geodash-plugin-angular-pipes.git/pipes/GeoDashPipePrepend"], function (exports_16, context_16) {
     "use strict";
     var __moduleName = context_16 && context_16.id;
     var core_16, http_3, platform_browser_1, GeoDashComponentMain_1, GeoDashComponentMap_1, GeoDashComponentMapMap_1, GeoDashComponentMapOverlays_1, GeoDashComponentMapNavbars_1, GeoDashPipeExtract_1, GeoDashPipeTernaryDefined_1, GeoDashPipeDefaultIfUndefinedOrBlank_1, GeoDashPipeMarkdownToHTML_1, GeoDashPipeSlugify_2, GeoDashPipeAppend_1, GeoDashPipePrepend_1, AppModule;
@@ -1721,7 +1721,7 @@ System.register("ts/app.module", ["@angular/core", "@angular/http", "@angular/pl
         }
     };
 });
-System.register("main", ["@angular/platform-browser-dynamic", "ts/app.module", "@angular/core"], function (exports_17, context_17) {
+System.register("geodash-viewer-angular.git/src/main", ["@angular/platform-browser-dynamic", "geodash-viewer-angular.git/src/ts/app.module", "@angular/core"], function (exports_17, context_17) {
     "use strict";
     var __moduleName = context_17 && context_17.id;
     var platform_browser_dynamic_1, app_module_1, core_17;

@@ -20,7 +20,7 @@ webpackEmptyContext.id = 124;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ts_app_module__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ts_app_module__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(5);
 
 
@@ -38,84 +38,9 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dyna
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geodash_components_GeoDashComponentMain__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geodash_components_GeoDashComponentMap__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geodash_components_GeoDashComponentMapMap__ = __webpack_require__(133);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__geodash_components_GeoDashComponentMapOverlays__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__geodash_components_GeoDashComponentMapNavbars__ = __webpack_require__(134);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__geodash_pipes_GeoDashPipeExtract__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__geodash_pipes_GeoDashPipeTernaryDefined__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__geodash_pipes_GeoDashPipeDefaultIfUndefinedOrBlank__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__geodash_pipes_GeoDashPipeMarkdownToHTML__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__geodash_pipes_GeoDashPipeSlugify__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__geodash_pipes_GeoDashPipeAppend__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__geodash_pipes_GeoDashPipePrepend__ = __webpack_require__(140);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-/* Angular */
-
-
-
-/* Components */
-
-
-
-
-
-/* Pipes */
-
-
-
-
-
-
-
-var AppModule = (function () {
-    function AppModule() {
-    }
-    return AppModule;
-}());
-AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */])({
-        imports: [__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* HttpModule */]],
-        declarations: [
-            __WEBPACK_IMPORTED_MODULE_3__geodash_components_GeoDashComponentMain__["a" /* GeoDashComponentMain */],
-            __WEBPACK_IMPORTED_MODULE_4__geodash_components_GeoDashComponentMap__["a" /* GeoDashComponentMap */],
-            __WEBPACK_IMPORTED_MODULE_5__geodash_components_GeoDashComponentMapMap__["a" /* GeoDashComponentMapMap */],
-            __WEBPACK_IMPORTED_MODULE_6__geodash_components_GeoDashComponentMapOverlays__["a" /* GeoDashComponentMapOverlays */],
-            __WEBPACK_IMPORTED_MODULE_7__geodash_components_GeoDashComponentMapNavbars__["a" /* GeoDashComponentMapNavbars */],
-            __WEBPACK_IMPORTED_MODULE_8__geodash_pipes_GeoDashPipeExtract__["a" /* GeoDashPipeExtract */],
-            __WEBPACK_IMPORTED_MODULE_9__geodash_pipes_GeoDashPipeTernaryDefined__["a" /* GeoDashPipeTernaryDefined */],
-            __WEBPACK_IMPORTED_MODULE_10__geodash_pipes_GeoDashPipeDefaultIfUndefinedOrBlank__["a" /* GeoDashPipeDefaultIfUndefinedOrBlank */],
-            __WEBPACK_IMPORTED_MODULE_11__geodash_pipes_GeoDashPipeMarkdownToHTML__["a" /* GeoDashPipeMarkdownToHTML */],
-            __WEBPACK_IMPORTED_MODULE_12__geodash_pipes_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */],
-            __WEBPACK_IMPORTED_MODULE_13__geodash_pipes_GeoDashPipeAppend__["a" /* GeoDashPipeAppend */],
-            __WEBPACK_IMPORTED_MODULE_14__geodash_pipes_GeoDashPipePrepend__["a" /* GeoDashPipePrepend */]
-        ],
-        providers: [],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_3__geodash_components_GeoDashComponentMain__["a" /* GeoDashComponentMain */]]
-    })
-], AppModule);
-
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 131:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceBootloader__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geodash_services_GeoDashServiceCompile__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceBootloader__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_GeoDashServiceCompile__ = __webpack_require__(37);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMain; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -358,12 +283,12 @@ GeoDashComponentMain = __decorate([
         selector: 'geodash-main',
         template: geodash.api.getTemplate('geodashMain.tpl.html'),
         providers: [
-            __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */],
-            __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */],
-            __WEBPACK_IMPORTED_MODULE_3__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]
+            __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */],
+            __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */],
+            __WEBPACK_IMPORTED_MODULE_3_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]
         ]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceBootloader__["a" /* GeoDashServiceBootloader */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _d || Object])
 ], GeoDashComponentMain);
 
 var _a, _b, _c, _d;
@@ -371,57 +296,13 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 132:
+/***/ 131:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__ = __webpack_require__(27);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMap; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-/* Components */
-
-/* Services */
-
-var GeoDashComponentMap = (function () {
-    function GeoDashComponentMap(element, bus) {
-        this.element = element;
-        this.bus = bus;
-        this.name = 'GeoDashComponentMap';
-    }
-    GeoDashComponentMap.prototype.ngOnInit = function () {
-        geodash.var.components[this.name] = this; // register externally
-    };
-    return GeoDashComponentMap;
-}());
-GeoDashComponentMap = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
-        selector: 'geodash-map',
-        template: geodash.api.getTemplate('geodashMap.tpl.html')
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object])
-], GeoDashComponentMap);
-
-var _a, _b;
-//# sourceMappingURL=GeoDashComponentMap.js.map
-
-/***/ }),
-
-/***/ 133:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__ = __webpack_require__(37);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMapMap; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -665,7 +546,7 @@ GeoDashComponentMapMap = __decorate([
         selector: 'geodash-map-map',
         template: geodash.api.getTemplate('geodashMapMap.tpl.html')
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object])
 ], GeoDashComponentMapMap);
 
 var _a, _b, _c;
@@ -673,14 +554,14 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 134:
+/***/ 132:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geodash_pipes_GeoDashPipeSlugify__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_GeoDashPipeSlugify__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMapNavbars; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -694,6 +575,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /* Components */
 
 /* Services */
+//import { GeoDashServiceBus }  from './../../geodash/services/GeoDashServiceBus';
+//import { GeoDashServiceCompile } from './../../geodash/services/GeoDashServiceCompile';
+//import { GeoDashPipeSlugify }  from './../../geodash/pipes/GeoDashPipeSlugify';
 
 
 
@@ -1185,10 +1069,10 @@ GeoDashComponentMapNavbars = __decorate([
         selector: 'geodash-map-navbars',
         template: geodash.api.getTemplate('geodashMapNavbars.tpl.html'),
         providers: [
-            __WEBPACK_IMPORTED_MODULE_3__geodash_pipes_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */]
+            __WEBPACK_IMPORTED_MODULE_3_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */]
         ]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__geodash_pipes_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__geodash_pipes_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */]) === "function" && _d || Object])
 ], GeoDashComponentMapNavbars);
 
 var _a, _b, _c, _d;
@@ -1196,13 +1080,13 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 135:
+/***/ 133:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__ = __webpack_require__(37);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMapOverlays; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1375,7 +1259,7 @@ GeoDashComponentMapOverlays = __decorate([
         template: geodash.api.getTemplate('geodashMapOverlays.tpl.html'),
         providers: []
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__geodash_services_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__geodash_services_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_GeoDashServiceCompile__["a" /* GeoDashServiceCompile */]) === "function" && _c || Object])
 ], GeoDashComponentMapOverlays);
 
 var _a, _b, _c;
@@ -1383,7 +1267,51 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 136:
+/***/ 134:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__ = __webpack_require__(27);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeoDashComponentMap; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/* Components */
+
+/* Services */
+
+var GeoDashComponentMap = (function () {
+    function GeoDashComponentMap(element, bus) {
+        this.element = element;
+        this.bus = bus;
+        this.name = 'GeoDashComponentMap';
+    }
+    GeoDashComponentMap.prototype.ngOnInit = function () {
+        geodash.var.components[this.name] = this; // register externally
+    };
+    return GeoDashComponentMap;
+}());
+GeoDashComponentMap = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
+        selector: 'geodash-map',
+        template: geodash.api.getTemplate('geodashMap.tpl.html')
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* ElementRef */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_GeoDashServiceBus__["a" /* GeoDashServiceBus */]) === "function" && _b || Object])
+], GeoDashComponentMap);
+
+var _a, _b;
+//# sourceMappingURL=GeoDashComponentMap.js.map
+
+/***/ }),
+
+/***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1417,7 +1345,7 @@ GeoDashPipeAppend = __decorate([
 
 /***/ }),
 
-/***/ 137:
+/***/ 136:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1446,7 +1374,7 @@ GeoDashPipeDefaultIfUndefinedOrBlank = __decorate([
 
 /***/ }),
 
-/***/ 138:
+/***/ 137:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1479,7 +1407,7 @@ GeoDashPipeExtract = __decorate([
 
 /***/ }),
 
-/***/ 139:
+/***/ 138:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1508,7 +1436,7 @@ GeoDashPipeMarkdownToHTML = __decorate([
 
 /***/ }),
 
-/***/ 140:
+/***/ 139:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1542,7 +1470,7 @@ GeoDashPipePrepend = __decorate([
 
 /***/ }),
 
-/***/ 141:
+/***/ 140:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1571,7 +1499,7 @@ GeoDashPipeTernaryDefined = __decorate([
 
 /***/ }),
 
-/***/ 142:
+/***/ 141:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1636,6 +1564,81 @@ GeoDashServiceBootloader = __decorate([
 
 var _a;
 //# sourceMappingURL=GeoDashServiceBootloader.js.map
+
+/***/ }),
+
+/***/ 142:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_GeoDashComponentMain__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_GeoDashComponentMap__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_GeoDashComponentMapMap__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_GeoDashComponentMapOverlays__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_GeoDashComponentMapNavbars__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_GeoDashPipeExtract__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_GeoDashPipeTernaryDefined__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_GeoDashPipeDefaultIfUndefinedOrBlank__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_GeoDashPipeMarkdownToHTML__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_GeoDashPipeSlugify__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_GeoDashPipeAppend__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_GeoDashPipePrepend__ = __webpack_require__(139);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+/* Angular */
+
+
+
+/* Components */
+
+
+
+
+
+/* Pipes */
+
+
+
+
+
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */])({
+        imports: [__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* HttpModule */]],
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_3_GeoDashComponentMain__["a" /* GeoDashComponentMain */],
+            __WEBPACK_IMPORTED_MODULE_4_GeoDashComponentMap__["a" /* GeoDashComponentMap */],
+            __WEBPACK_IMPORTED_MODULE_5_GeoDashComponentMapMap__["a" /* GeoDashComponentMapMap */],
+            __WEBPACK_IMPORTED_MODULE_6_GeoDashComponentMapOverlays__["a" /* GeoDashComponentMapOverlays */],
+            __WEBPACK_IMPORTED_MODULE_7_GeoDashComponentMapNavbars__["a" /* GeoDashComponentMapNavbars */],
+            __WEBPACK_IMPORTED_MODULE_8_GeoDashPipeExtract__["a" /* GeoDashPipeExtract */],
+            __WEBPACK_IMPORTED_MODULE_9_GeoDashPipeTernaryDefined__["a" /* GeoDashPipeTernaryDefined */],
+            __WEBPACK_IMPORTED_MODULE_10_GeoDashPipeDefaultIfUndefinedOrBlank__["a" /* GeoDashPipeDefaultIfUndefinedOrBlank */],
+            __WEBPACK_IMPORTED_MODULE_11_GeoDashPipeMarkdownToHTML__["a" /* GeoDashPipeMarkdownToHTML */],
+            __WEBPACK_IMPORTED_MODULE_12_GeoDashPipeSlugify__["a" /* GeoDashPipeSlugify */],
+            __WEBPACK_IMPORTED_MODULE_13_GeoDashPipeAppend__["a" /* GeoDashPipeAppend */],
+            __WEBPACK_IMPORTED_MODULE_14_GeoDashPipePrepend__["a" /* GeoDashPipePrepend */]
+        ],
+        providers: [],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_3_GeoDashComponentMain__["a" /* GeoDashComponentMain */]]
+    })
+], AppModule);
+
+//# sourceMappingURL=app.module.js.map
 
 /***/ }),
 
